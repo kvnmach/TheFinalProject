@@ -1,0 +1,66 @@
+﻿@model TheFinalProject.Models.ProfileVM
+@{
+    ViewBag.Title = "Profile";
+}
+
+<div class="jumbotron">
+    <h1>Rent My Tools</h1>
+    @Html.ActionLink("Check out our tools!", "Index", "Tools")
+</div>
+
+<div class="row">
+    <div class="profilepanel">
+        <h4>@Model.Email</h4>
+        <img src="@Model.Photo" />
+        <h4>@Model.Phone</h4>
+        <h4>@Model.City, @Model.State</h4>
+        <h4>@Model.Zip</h4>
+
+    </div>
+    <div class="profilepanel">
+        @Html.ActionLink("New Tool", "CreateTool")
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Photo</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Available</th>
+            </tr>
+            @foreach (var item in Model.MyTools)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td><img src="@item.Photo" /></td>
+                    <td>@item.Description</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.IsAvailable</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>@Html.ActionLink("Edit Tool ", "EditTool", new { Id = item.ToolId })</td>
+                    <td>@Html.ActionLink("Delete Tool", "DeleteTool", new { Id = item.ToolId })</td>
+                </tr>
+            }
+        </table>
+
+    </div>
+    <div class="profilepanel">
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Available</th>
+            </tr>
+            @foreach (var item in Model.Workbench)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.IsAvailable</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

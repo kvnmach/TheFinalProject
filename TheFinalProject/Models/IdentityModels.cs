@@ -1,8 +1,11 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using TheFinalProject.Models;
 
 namespace TheFinalProject.Models
 {
@@ -16,18 +19,44 @@ namespace TheFinalProject.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Photo { get; set; }
+        public string Phone { get; set; }
+        public int Zip { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+
+        public virtual ICollection<Tool> MyTools { get; set; } = new List<Tool>();
+        public virtual ICollection<Tool> Workbench { get; set; } = new List<Tool>();
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+   
+
+    public class DbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public DbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static DbContext Create()
         {
-            return new ApplicationDbContext();
+            return new DbContext();
+        }
+
+        public System.Data.Entity.DbSet<TheFinalProject.Models.Tool> Tools { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Tool>().HasOptional(t => t.Owner).WithMany(o => o.MyTools);
+            modelBuilder.Entity<Tool>().HasMany(t => t.OnPeoplesWorkBench).WithMany(o => o.Workbench).Map(m =>
+            {
+                m.ToTable("ToolsOnWorkBench");
+                m.MapLeftKey("User_Id");
+                m.MapLeftKey("Tool_Id");
+            });
         }
     }
 }

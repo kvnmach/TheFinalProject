@@ -79,6 +79,25 @@ namespace TheFinalProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Profile Photo")]
+        public string Photo { get; set; }
+
+        [Required]
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
+
+        [Required]
+        [Display(Name = "Zip")]
+        public int Zip { get; set; }
+
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+
+        [Required]
+        [Display(Name = "State")]
+        public string State { get; set; }
     }
 
     public class ResetPasswordViewModel
