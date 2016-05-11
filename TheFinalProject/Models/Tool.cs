@@ -31,6 +31,7 @@ namespace TheFinalProject.Models
         public string ZipCode { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+       
 
         public Category ToolCategory { get; set; }
 

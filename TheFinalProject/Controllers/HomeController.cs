@@ -1,9 +1,6 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TheFinalProject.Models;
@@ -24,25 +21,24 @@ namespace TheFinalProject.Controllers
 
         public ActionResult GeneralView()
         {
-
-   
-                var model = db.Tools.Where(u=>u.IsAvailable).ToList().Select(r => new ToolsVm()
-                {
-                    Photo = r.Photo,
-                    Title = r.Title,
-                    Description = r.Description,
-                    CategoryName = r.ToolCategory,
-                    IsAvailable = r.IsAvailable,
-                    ZipCode = r.ZipCode,
-                    City = r.City,
-                    State = r.State,
-                    
-        });
+            var model = db.Tools.Where(u => u.IsAvailable).ToList().Select(r => new ToolsVm
+            {
+                Photo = r.Photo,
+                Title = r.Title,
+                Description = r.Description,
+                CategoryName = r.ToolCategory,
+                IsAvailable = r.IsAvailable,
+                ZipCode = r.ZipCode,
+                City = r.City,
+                State = r.State
+            });
 
             ViewData["isAvailable"] = true;
 
             return View(model);
         }
+
+        
 
         public ActionResult Profile(string id)
         {
