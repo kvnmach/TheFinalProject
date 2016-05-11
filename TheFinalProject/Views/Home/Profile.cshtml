@@ -10,8 +10,9 @@
 
 <div class="row">
     <div class="profilepanel">
+        <h4>@Model.Handle</h4>
         <h4>@Model.Email</h4>
-        <img src="@Model.Photo" />
+        <img src="@Model.Photo"/>
         <h4>@Model.Phone</h4>
         <h4>@Model.City, @Model.State</h4>
         <h4>@Model.Zip</h4>
@@ -25,7 +26,9 @@
                 <th>Photo</th>
                 <th>Description</th>
                 <th>Category</th>
+                <th>Handle</th>
                 <th>Available</th>
+
             </tr>
             @foreach (var item in Model.MyTools)
             {
