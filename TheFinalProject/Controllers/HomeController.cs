@@ -1,33 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
-using Humanizer;
 using Microsoft.AspNet.Identity;
 using TheFinalProject.Models;
+using DbContext = TheFinalProject.Models.DbContext;
 
 namespace TheFinalProject.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private Models.DbContext db = new Models.DbContext();
+        private readonly DbContext db = new DbContext();
 
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
             return Profile(userId);
+        }
 
+        public ActionResult GeneralView()
+        {
+
+   
+                var model = db.Tools.Where(u=>u.IsAvailable).ToList().Select(r => new ToolsVm()
+                {
+                    Photo = r.Photo,
+                    Title = r.Title,
+                    Description = r.Description,
+                    CategoryName = r.ToolCategory,
+                    IsAvailable = r.IsAvailable,
+                    ZipCode = r.ZipCode,
+                    City = r.City,
+                    State = r.State,
+                    
+        });
+
+            ViewData["isAvailable"] = true;
+
+            return View(model);
         }
 
         public ActionResult Profile(string id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var userInfo = db.Users.Find(id);
 
-            var userProfile = new ProfileVM()
+            var userProfile = new ProfileVM
             {
                 Email = userInfo.Email,
                 Photo = userInfo.Photo,
@@ -35,11 +60,12 @@ namespace TheFinalProject.Controllers
                 City = userInfo.City,
                 State = userInfo.State,
                 Zip = userInfo.Zip,
-                MyTools = userInfo.MyTools.Select(t => new ToolsVM(t)).ToList(),
-                Workbench = userInfo.Workbench.Select(t => new ToolsVM(t)).ToList(),
+                MyTools = userInfo.MyTools.Select(t => new ToolsVm(t)).ToList(),
+                Workbench = userInfo.Workbench.Select(t => new ToolsVm(t)).ToList()
             };
             return View("Profile", userProfile);
         }
+
         public ActionResult CreateTool()
         {
             return View();
@@ -68,7 +94,7 @@ namespace TheFinalProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tool tool = db.Tools.Find(id);
+            var tool = db.Tools.Find(id);
             if (tool == null)
             {
                 return HttpNotFound();

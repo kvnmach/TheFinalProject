@@ -15,7 +15,7 @@ namespace TheFinalProject.Models
         public string City { get; set; }
         public string State { get; set; }
 
-        public List<ToolsVM> MyTools { get; set; } = new List<ToolsVM>();
-        public List<ToolsVM> Workbench { get; set; } = new List<ToolsVM>();
+        public List<ToolsVm> MyTools { get; set; } = new List<ToolsVm>();
+        public List<ToolsVm> Workbench { get; set; } = new List<ToolsVm>();
     }
 }

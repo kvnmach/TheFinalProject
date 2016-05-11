@@ -206,6 +206,10 @@
     <Compile Include="Migrations\201605101549064_Initial.Designer.cs">
       <DependentUpon>201605101549064_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605111553467_location.cs" />
+    <Compile Include="Migrations\201605111553467_location.Designer.cs">
+      <DependentUpon>201605111553467_location.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Tool.cs" />
     <Compile Include="Models\ToolsVM.cs" />
@@ -281,6 +285,7 @@
     <Content Include="Views\Home\EditTool.cshtml" />
     <Content Include="Views\Home\CreateTool.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\Home\GeneralView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -296,6 +301,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605101549064_Initial.resx">
       <DependentUpon>201605101549064_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605111553467_location.resx">
+      <DependentUpon>201605111553467_location.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -5,15 +5,20 @@ namespace TheFinalProject.Models
 
     public enum Category
     {
-        AirCompressor,
+        AirCompressors,
+        Generators,
         Automotive,
-        HandTool,
-        PowerTool,
+        HandTools,
+        PowerTools,
         Welding,
         Vacuum,
         Sporting,
-        LawnMachinery,
-        Outdoors
+        LawnEquipment,
+        Outdoors,
+        Crafting,
+        ToolPackageKit,
+        Pottery,
+        MicroTools,
     }
 
     public class Tool
@@ -22,7 +27,10 @@ namespace TheFinalProject.Models
         public string Title { get; set; }
         public string Photo { get; set; }
         public string Description { get; set; }
-        public bool IsAvailable { get; set; }
+        public bool IsAvailable { get; set; } = true;
+        public string ZipCode { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
 
         public Category ToolCategory { get; set; }
 
