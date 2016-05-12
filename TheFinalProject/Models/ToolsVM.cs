@@ -15,7 +15,7 @@ namespace TheFinalProject.Controllers
         public ToolsVm(Tool t)
         {
             Title = t.Title;
-            Photo = t.Photo;
+            Photo = "https://toolrental.blob.core.windows.net/toolimages/" +  t.Photo;
             ToolId = t.Id;
             Description = t.Description;
             CategoryName = t.ToolCategory.Humanize();
@@ -34,6 +34,9 @@ namespace TheFinalProject.Controllers
         public string ZipCode { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public string userId { get; set; }
+        public string UserId { get; set; }
     }
+
+
+ 
 }

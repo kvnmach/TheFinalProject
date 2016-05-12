@@ -46,7 +46,7 @@
             <tr>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Photo)
+                    <img style="width: 100px;" src="@item.Photo"/>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -61,7 +61,7 @@
                     @Html.DisplayFor(modelItem => item.ZipCode)
                 </td>
                 <td>
-                    @if (item.userId != User.Identity.GetUserId())
+                    @if (item.UserId != User.Identity.GetUserId())
                     {
                         <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool"/></td>
                     }

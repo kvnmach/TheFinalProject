@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using System.Web;
 using System.Web.Mvc;
 using Humanizer;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using TheFinalProject.Models;
 using DbContext = TheFinalProject.Models.DbContext;
 
@@ -24,16 +28,16 @@ namespace TheFinalProject.Controllers
             return Profile(userId);
         }
 
-        public ActionResult GeneralView(string option, string search )
+        public ActionResult GeneralView(string option, string search)
         {
-            
+
             var userInfo = db.Users.Find(User.Identity.GetUserId());
 
             var toolsList = new List<Tool>();
-           
+
             if (option == "Title")
             {
-                 toolsList = db.Tools.Where(x => x.Title.Contains(search) || search == null).ToList();
+                toolsList = db.Tools.Where(x => x.Title.Contains(search) || search == null).ToList();
             }
             else if (option == "Description")
             {
@@ -48,10 +52,10 @@ namespace TheFinalProject.Controllers
                 toolsList = db.Tools.Where(u => u.IsAvailable).ToList();
             }
 
-          var completeTools = toolsList.Select(r => new ToolsVm
+            var completeTools = toolsList.Select(r => new ToolsVm
             {
-              ToolId = r.Id,
-                Photo = r.Photo,
+                ToolId = r.Id,
+                Photo = "https://toolrental.blob.core.windows.net/toolimages/" + r.Photo,
                 Title = r.Title,
                 Description = r.Description,
                 CategoryName = r.ToolCategory,
@@ -59,15 +63,15 @@ namespace TheFinalProject.Controllers
                 ZipCode = r.ZipCode,
                 City = r.City,
                 State = r.State,
-                userId = r.Owner.Id
-          });
+                UserId = r.Owner.Id
+            });
 
             var model = new SearchVM()
             {
-                 Workbench = userInfo.Workbench.Select(t => new ToolsVm(t)).ToList(),
-                 SearchTools = completeTools.ToList()
+                Workbench = userInfo.Workbench.Select(t => new ToolsVm(t)).ToList(),
+                SearchTools = completeTools.ToList()
             };
-           
+
             return View(model);
         }
 
@@ -94,7 +98,7 @@ namespace TheFinalProject.Controllers
             return Content("done");
         }
 
-      
+
 
         public ActionResult Profile(string id)
         {
@@ -125,12 +129,17 @@ namespace TheFinalProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateTool(Tool tool)
+        public ActionResult CreateTool(Tool tool, HttpPostedFileBase photo)
         {
-            var currentUserId = User.Identity.GetUserId();
+
 
             if (ModelState.IsValid)
             {
+                var currentUserId = User.Identity.GetUserId();
+
+                var newImageName = UploadImage(photo.InputStream);
+
+                tool.Photo = newImageName;
                 var currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
                 currentUser.MyTools.Add(tool);
                 db.SaveChanges();
@@ -138,6 +147,26 @@ namespace TheFinalProject.Controllers
             }
 
             return View(tool);
+        }
+
+        private static string UploadImage(Stream photo)
+        {
+            var newImageName = $"{Guid.NewGuid()}.jpg";
+            CloudStorageAccount storageAccount = CloudStorageAccount
+                .Parse(
+                    "DefaultEndpointsProtocol=https;AccountName=toolrental;AccountKey=5756pti72TndAssLpwfERuzmcFfNaj/b4cgD+339wlntTokGFkZ9bQXP0ua5FlbnZdldoTfa+2TOJDWG5J4J6Q==");
+
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("toolimages");
+
+            container.CreateIfNotExists();
+            container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+
+
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(newImageName);
+            blockBlob.UploadFromStream(photo);
+
+            return newImageName;
         }
 
         public ActionResult EditTool(int? id)
