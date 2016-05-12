@@ -1,19 +1,25 @@
 ﻿@using Microsoft.AspNet.Identity
+@using TheFinalProject.Models
 @model TheFinalProject.Models.SearchVM
+<div class="row-sm-1 ">
+    <tr>
+        @using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
+        {
+            //the following are search options
 
-@using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
-{
-    //the following are search options
-
-    <b> Search : </b>
-    @Html.RadioButton("option", "Title")
-    <text>Title</text> @Html.RadioButton("option", "Category")
-    <text> Category </text>
-    @Html.RadioButton("option", "ZipCode"
-        )<text>ZipCode</text>
-        @Html.TextBox("search")
-        <input type="submit" name="submit" value="Search" />
-}
+            <b> Search : </b>
+            @Html.RadioButton("option", "Title")
+            <text>Title</text>
+            @Html.RadioButton("option", "Category")
+            ;
+            <text> Category </text>
+            @Html.RadioButton("option", "ZipCode")
+            <text>ZipCode</text>
+            @Html.TextBox("search")
+            <input type="submit" value="Filter" />
+        }
+    </tr>
+</div>
 <div class="col-xs-8 profilepanel">
     <table class="table">
         <tr>
@@ -56,7 +62,7 @@
                     @Html.DisplayFor(modelItem => item.ZipCode)
                 </td>
                 <td>
-                    @if (item.userId == User.Identity.GetUserId())
+                    @if (item.userId != User.Identity.GetUserId())
                     {
                         <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool"/></td>
                     }
