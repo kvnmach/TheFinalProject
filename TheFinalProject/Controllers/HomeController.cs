@@ -49,7 +49,7 @@ namespace TheFinalProject.Controllers
                 toolsList = db.Tools.Where(u => u.IsAvailable).ToList();
             }
 
-          var completeTools = toolsList.ToList().Select(r => new ToolsVm
+          var completeTools = toolsList.Select(r => new ToolsVm
             {
               ToolId = r.Id,
                 Photo = r.Photo,
@@ -71,6 +71,7 @@ namespace TheFinalProject.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public ActionResult AddWorkBench(int Id)
         {
             var tool = db.Tools.FirstOrDefault(x => x.Id == Id);
@@ -78,9 +79,11 @@ namespace TheFinalProject.Controllers
             userInfo.Workbench.Add(tool);
 
             db.SaveChanges();
-          return RedirectToAction("GeneralView");
+
+            return Content("done");
         }
 
+        [HttpPost]
         public ActionResult RemoveWorkBench(int Id)
         {
             var tool = db.Tools.FirstOrDefault(x => x.Id == Id);
@@ -88,7 +91,7 @@ namespace TheFinalProject.Controllers
             userInfo.Workbench.Remove(tool);
 
             db.SaveChanges();
-            return RedirectToAction("GeneralView");
+            return Content("done");
         }
 
 

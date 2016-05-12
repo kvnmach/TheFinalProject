@@ -55,28 +55,54 @@
                     @Html.DisplayFor(modelItem => item.ZipCode)
                 </td>
                 <td>
-                    @Html.ActionLink("Add to Workbench", "AddWorkBench/" + @item.ToolId)
-                </td>
+                <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool" /></td>
             </tr>
         }
     </table>
 </div>
-    <div class="profilepanel">
-        <table>
-            <tr>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Available</th>
-            </tr>
-            @foreach (var item in Model.Workbench)
+<div class="profilepanel">
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Available</th>
+        </tr>
+        @foreach (var item in Model.Workbench)
             {
-                <tr>
-                    <td>@item.Title</td>
-                    <td>@item.Photo</td>
-                    <td>@item.Description</td>
-                    <td>@Html.ActionLink("Remove ", "RemoveWorkBench/" + @item.ToolId)</td>
-                </tr>
-            }
-        </table>
-    </div>
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Photo</td>
+                <td>@item.Description</td>
+                <td> <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool" /></td>
+            </tr>
+        }
+    </table>
+</div>
+@section scripts {
+    <script>
+        $(".addtool").click(function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type: "POST",
+                data: { id: id },
+                url: '@Url.Action("AddWorkbench","Home")'
+            }).done(function () {
+                location.reload(true);
+            });
 
+        });
+
+        $(".removetool").click(function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type: "POST",
+                data: { id: id },
+                url: '@Url.Action("RemoveWorkBench","Home")'
+            }).done(function () {
+                location.reload(true);
+            });
+
+        });
+
+    </script>
+}

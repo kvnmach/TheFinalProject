@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="profilepanel">
-      
+
         <h4>@Model.Email</h4>
         <img src="@Model.Photo"/>
         <h4>@Model.Phone</h4>
@@ -37,17 +37,17 @@
             {
                 <tr>
                     <td>@item.Title</td>
-                    <td><img src="@item.Photo" /></td>
+                    <td><img src="@item.Photo"/></td>
                     <td>@item.Description</td>
                     <td>@item.CategoryName</td>
                     <td>@item.IsAvailable</td>
-                    
+
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>@Html.ActionLink("Edit Tool ", "EditTool", new { Id = item.ToolId })</td>
-                    <td>@Html.ActionLink("Delete Tool", "DeleteTool", new { Id = item.ToolId })</td>
+                    <td>@Html.ActionLink("Edit Tool ", "EditTool", new {Id = item.ToolId})</td>
+                    <td>@Html.ActionLink("Delete Tool", "DeleteTool", new {Id = item.ToolId})</td>
                 </tr>
             }
         </table>
@@ -66,8 +66,27 @@
                     <td>@item.Title</td>
                     <td>@item.Photo</td>
                     <td>@item.Description</td>
+                    <td>  <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool" /></td>
                 </tr>
             }
         </table>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        
+        $(".removetool").click(function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type: "POST",
+                data: { id: id },
+                url: '@Url.Action("RemoveWorkBench","Home")'
+            }).done(function () {
+                location.reload(true);
+            });
+
+        });
+
+    </script>
+}
