@@ -4,7 +4,7 @@
 {
     //the following are search options
 
-    <b> Search Option: </b>
+    <b> Search : </b>
     @Html.RadioButton("option", "Title")
     <text>Title</text> @Html.RadioButton("option", "Category")
     <text> Category </text>
@@ -74,6 +74,7 @@
                     <td>@item.Title</td>
                     <td>@item.Photo</td>
                     <td>@item.Description</td>
+                    <td>@Html.ActionLink("Remove ", "RemoveWorkBench/" + @item.ToolId)</td>
                 </tr>
             }
         </table>
