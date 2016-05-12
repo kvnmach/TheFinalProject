@@ -1,7 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
+using Humanizer;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using TheFinalProject.Models;
 using DbContext = TheFinalProject.Models.DbContext;
@@ -19,10 +24,34 @@ namespace TheFinalProject.Controllers
             return Profile(userId);
         }
 
-        public ActionResult GeneralView()
+        public ActionResult GeneralView(string option, string search )
         {
-            var model = db.Tools.Where(u => u.IsAvailable).ToList().Select(r => new ToolsVm
+            search = search?.Humanize();
+            var userInfo = db.Users.Find(User.Identity.GetUserId());
+
+            var toolsList = new List<Tool>();
+            //if a user choose the radio button option as Subject  
+            if (option == "Title")
             {
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+               toolsList = db.Tools.Where(x => x.Title == search || search == null).ToList();
+            }
+            else if (option == "Description")
+            {
+                toolsList = db.Tools.Where(x => x.Description == search || search == null).ToList();
+            }
+            else if (option == "Category")
+            {
+                toolsList = db.Tools.Where(x => (x.ToolCategory).ToString() == search || search == null).ToList();
+            }
+            else
+            {
+                toolsList = db.Tools.Where(u => u.IsAvailable).ToList();
+            }
+
+          var completeTools = toolsList.Where(u => u.IsAvailable).ToList().Select(r => new ToolsVm
+            {
+              ToolId = r.Id,
                 Photo = r.Photo,
                 Title = r.Title,
                 Description = r.Description,
@@ -30,15 +59,30 @@ namespace TheFinalProject.Controllers
                 IsAvailable = r.IsAvailable,
                 ZipCode = r.ZipCode,
                 City = r.City,
-                State = r.State
-            });
+                State = r.State,
+          });
 
-            ViewData["isAvailable"] = true;
-
+            var model = new SearchVM()
+            {
+                 Workbench = userInfo.Workbench.Select(t => new ToolsVm(t)).ToList(),
+                 SearchTools = completeTools.ToList()
+            };
+           
             return View(model);
         }
 
-        
+        public ActionResult AddWorkBench(int Id)
+        {
+            var tool = db.Tools.FirstOrDefault(x => x.Id == Id);
+            var userInfo = db.Users.Find(User.Identity.GetUserId());
+            userInfo.Workbench.Add(tool);
+
+            db.SaveChanges();
+          return RedirectToAction("GeneralView");
+        }
+
+
+
 
         public ActionResult Profile(string id)
         {

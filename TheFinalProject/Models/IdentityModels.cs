@@ -20,7 +20,7 @@ namespace TheFinalProject.Models
             return userIdentity;
         }
 
-        public string Handle { get; set; }
+       
         public string Photo { get; set; }
         public string Phone { get; set; }
         public int Zip { get; set; }

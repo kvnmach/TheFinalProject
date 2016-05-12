@@ -3,6 +3,8 @@
     ViewBag.Title = "Profile";
 }
 
+
+
 <div class="jumbotron">
     <h1>Rent My Tools</h1>
     @Html.ActionLink("Check out our tools!", "GeneralView", "Home")
@@ -10,7 +12,7 @@
 
 <div class="row">
     <div class="profilepanel">
-        <h4>@Model.Handle</h4>
+      
         <h4>@Model.Email</h4>
         <img src="@Model.Photo"/>
         <h4>@Model.Phone</h4>
@@ -26,8 +28,9 @@
                 <th>Photo</th>
                 <th>Description</th>
                 <th>Category</th>
-                <th>Handle</th>
                 <th>Available</th>
+                <th>ZipCode</th>
+                <th>City</th>
 
             </tr>
             @foreach (var item in Model.MyTools)
@@ -38,6 +41,7 @@
                     <td>@item.Description</td>
                     <td>@item.CategoryName</td>
                     <td>@item.IsAvailable</td>
+                    
                 </tr>
                 <tr>
                     <td></td>
@@ -60,8 +64,8 @@
             {
                 <tr>
                     <td>@item.Title</td>
-                    <td>@item.CategoryName</td>
-                    <td>@item.IsAvailable</td>
+                    <td>@item.Photo</td>
+                    <td>@item.Description</td>
                 </tr>
             }
         </table>

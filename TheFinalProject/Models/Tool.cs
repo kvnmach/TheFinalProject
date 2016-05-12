@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Humanizer;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TheFinalProject.Models
 {
@@ -31,11 +33,12 @@ namespace TheFinalProject.Models
         public string ZipCode { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-       
+
 
         public Category ToolCategory { get; set; }
 
-        
+        public string CategoryName => ToolCategory.Humanize();
+
         public virtual ApplicationUser Owner { get; set; }
 
         public virtual ICollection<ApplicationUser> OnPeoplesWorkBench { get; set; } = new List<ApplicationUser>();

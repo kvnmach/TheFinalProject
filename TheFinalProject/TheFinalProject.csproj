@@ -210,11 +210,16 @@
     <Compile Include="Migrations\201605111553467_location.Designer.cs">
       <DependentUpon>201605111553467_location.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605112037246_handle.cs" />
-    <Compile Include="Migrations\201605112037246_handle.Designer.cs">
-      <DependentUpon>201605112037246_handle.cs</DependentUpon>
+    <Compile Include="Migrations\201605112059475_handleremove.cs" />
+    <Compile Include="Migrations\201605112059475_handleremove.Designer.cs">
+      <DependentUpon>201605112059475_handleremove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605112305014_categoryname.cs" />
+    <Compile Include="Migrations\201605112305014_categoryname.Designer.cs">
+      <DependentUpon>201605112305014_categoryname.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\SearchVM.cs" />
     <Compile Include="Models\Tool.cs" />
     <Compile Include="Models\ToolsVM.cs" />
     <Compile Include="Global.asax.cs">
@@ -309,8 +314,11 @@
     <EmbeddedResource Include="Migrations\201605111553467_location.resx">
       <DependentUpon>201605111553467_location.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605112037246_handle.resx">
-      <DependentUpon>201605112037246_handle.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605112059475_handleremove.resx">
+      <DependentUpon>201605112059475_handleremove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605112305014_categoryname.resx">
+      <DependentUpon>201605112305014_categoryname.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

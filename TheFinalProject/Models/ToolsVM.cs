@@ -23,7 +23,7 @@ namespace TheFinalProject.Controllers
             ZipCode = t.ZipCode;
             City = t.City;
             State = t.State;
-
+            
         }
         public int ToolId { get; set; }
         public string Title { get; set; }
@@ -34,5 +34,6 @@ namespace TheFinalProject.Controllers
         public string ZipCode { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        
     }
 }
