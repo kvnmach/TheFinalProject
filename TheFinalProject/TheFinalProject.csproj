@@ -295,7 +295,6 @@
     <Content Include="Views\Home\CreateTool.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\GeneralView.cshtml" />
-    <Content Include="Views\Home\SearchView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

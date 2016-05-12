@@ -30,19 +30,18 @@ namespace TheFinalProject.Controllers
             var userInfo = db.Users.Find(User.Identity.GetUserId());
 
             var toolsList = new List<Tool>();
-            //if a user choose the radio button option as Subject  
+           
             if (option == "Title")
             {
-                //Index action method will return a view with a student records based on what a user specify the value in textbox  
-               toolsList = db.Tools.Where(x => x.Title.Contains(search) || search == null).ToList();
+                 toolsList = db.Tools.Where(x => x.Title.Contains(search) || search == null).ToList();
             }
             else if (option == "Description")
             {
                 toolsList = db.Tools.Where(x => x.Description.Contains(search) || search == null).ToList();
             }
-            else if (option == "Category")
+            else if (option == "ZipCode")
             {
-                toolsList = db.Tools.Where(x => (x.ToolCategory).ToString() == search || search == null).ToList();
+                toolsList = db.Tools.Where(x => x.ZipCode.Contains(search) || search == null).ToList();
             }
             else
             {
@@ -95,6 +94,7 @@ namespace TheFinalProject.Controllers
             return Content("done");
         }
 
+      
 
         public ActionResult Profile(string id)
         {
