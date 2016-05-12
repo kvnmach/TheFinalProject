@@ -60,6 +60,7 @@ namespace TheFinalProject.Controllers
                 ZipCode = r.ZipCode,
                 City = r.City,
                 State = r.State,
+                userId = r.Owner.Id
           });
 
             var model = new SearchVM()

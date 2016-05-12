@@ -1,4 +1,5 @@
-﻿@model TheFinalProject.Models.SearchVM
+﻿@using Microsoft.AspNet.Identity
+@model TheFinalProject.Models.SearchVM
 
 @using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
 {
@@ -55,8 +56,15 @@
                     @Html.DisplayFor(modelItem => item.ZipCode)
                 </td>
                 <td>
-                <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool" /></td>
-            </tr>
+                    @if (item.userId == User.Identity.GetUserId())
+                    {
+                        <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool"/></td>
+                    }
+                    else
+                    {
+                        <td>This is your tool</td>
+                    }
+                </tr>
         }
     </table>
 </div>

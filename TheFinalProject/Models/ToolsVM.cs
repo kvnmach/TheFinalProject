@@ -34,6 +34,6 @@ namespace TheFinalProject.Controllers
         public string ZipCode { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        
+        public string userId { get; set; }
     }
 }
