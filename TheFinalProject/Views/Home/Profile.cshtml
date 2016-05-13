@@ -1,4 +1,5 @@
-﻿@model TheFinalProject.Models.ProfileVM
+﻿@using TheFinalProject.Models
+@model TheFinalProject.Models.ProfileVM
 @{
     ViewBag.Title = "Profile";
 }
@@ -7,9 +8,9 @@
 
 <div class="jumbotron">
     <h1>
-        Your Work Shop
+        Your Workshop
     </h1>
-    @Html.ActionLink("Click Here to Begin", "GeneralView", "Home")
+    @Html.ActionLink("Click Here to Start Renting", "GeneralView", "Home")
 </div>
 
 <div class="row">
@@ -22,6 +23,7 @@
         <h4>@Model.Zip</h4>
 
     </div>
+
     <div class="profilepanel">
         @Html.ActionLink("New Tool", "CreateTool")
         <table>
@@ -44,7 +46,7 @@
                     <td>@item.CategoryName</td>
                     <td>@item.ZipCode</td>
                     <td>@item.IsAvailable</td>
-
+                  
                 </tr>
                 <tr>
                     <td></td>

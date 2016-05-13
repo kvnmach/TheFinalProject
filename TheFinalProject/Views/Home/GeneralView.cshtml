@@ -1,11 +1,12 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using Humanizer
+@using Microsoft.AspNet.Identity
 @using TheFinalProject.Models
 @model TheFinalProject.Models.SearchVM
 <div class="row-sm-1 ">
     <tr>
         @using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
         {
-            //the following are search options
+           
 
             <b> Search : </b>
             @Html.RadioButton("option", "Title")
@@ -32,6 +33,9 @@
                 Description
             </th>
             <th>
+                Category
+            </th>
+            <th>
                 Is Available
             </th>
             <th>
@@ -46,7 +50,7 @@
             <tr>
 
                 <td>
-                    <img style="width: 100px;" src="@item.Photo"/>
+                    <img style="width: 100px;" src="@item.Photo"/>  
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -55,22 +59,29 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
+                    @item.CategoryName
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.IsAvailable)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ZipCode)
                 </td>
                 <td>
-                    @if (item.UserId != User.Identity.GetUserId())
-                    {
-                        <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool"/></td>
-                    }
-                    else
-                    {
-                        <td>This is your tool</td>
-                    }
-                </tr>
-        }
+            
+                        @if (item.UserId != User.Identity.GetUserId())
+                         {
+                             <td> <input  type="button" data-id="@item.ToolId" value="add this shit" class="addtool"/></td> 
+                         }
+                         else
+                         {
+                             <td>This is your tool</td>
+                         }
+                  
+                         </tr>
+
+
+                }
     </table>
 </div>
 <div class="profilepanel">
@@ -116,6 +127,6 @@
             });
 
         });
-
+   
     </script>
 }

@@ -48,7 +48,7 @@ namespace TheFinalProject.Controllers
                 toolsList = db.Tools.Where(x => x.ZipCode.Contains(search) || search == null).ToList();
             }
             else
-            {
+            {//Availibility is located here to list
                 toolsList = db.Tools.Where(u => u.IsAvailable).ToList();
             }
 
@@ -131,15 +131,16 @@ namespace TheFinalProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateTool(Tool tool, HttpPostedFileBase photo)
         {
-
-
             if (ModelState.IsValid)
             {
+
+
                 var currentUserId = User.Identity.GetUserId();
 
-                var newImageName = UploadImage(photo.InputStream);
 
-                tool.Photo = newImageName;
+            var newImageName = UploadImage(photo.InputStream);
+            tool.Photo = newImageName;
+            
                 var currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
                 currentUser.MyTools.Add(tool);
                 db.SaveChanges();
@@ -176,6 +177,9 @@ namespace TheFinalProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var tool = db.Tools.Find(id);
+            
+
+        
             if (tool == null)
             {
                 return HttpNotFound();
@@ -189,6 +193,11 @@ namespace TheFinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+            
+
+               
+               
+                db.SaveChanges();
                 db.Entry(tool).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
