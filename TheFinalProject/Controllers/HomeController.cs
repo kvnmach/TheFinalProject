@@ -4,11 +4,8 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
-using Humanizer;
-using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -28,9 +25,19 @@ namespace TheFinalProject.Controllers
             return Profile(userId);
         }
 
-        public ActionResult GeneralView(string option, string search)
+        [HttpGet]
+        public ActionResult SearchView(string zipCode)
         {
+          var searchResult =  db.Tools.Where(x => x.ZipCode.Contains(zipCode) || zipCode == null);
+            
+            return View(searchResult);
+        }
 
+      
+
+        public    ActionResult GeneralView(string option, string search, string zipcode)
+        {
+            
             var userInfo = db.Users.Find(User.Identity.GetUserId());
 
             var toolsList = new List<Tool>();
@@ -39,17 +46,19 @@ namespace TheFinalProject.Controllers
             {
                 toolsList = db.Tools.Where(x => x.Title.Contains(search) || search == null).ToList();
             }
-            else if (option == "Description")
+            else if (option == "Category")
             {
                 toolsList = db.Tools.Where(x => x.Description.Contains(search) || search == null).ToList();
             }
-            else if (option == "ZipCode")
+          else
             {
-                toolsList = db.Tools.Where(x => x.ZipCode.Contains(search) || search == null).ToList();
-            }
-            else
-            {//Availibility is located here to list
+                //Availibility is located here to list
                 toolsList = db.Tools.Where(u => u.IsAvailable).ToList();
+            }
+
+            if (zipcode != "")
+            {
+                toolsList = toolsList.Where(x => x.ZipCode == zipcode).ToList();
             }
 
             var completeTools = toolsList.Select(r => new ToolsVm
@@ -66,7 +75,7 @@ namespace TheFinalProject.Controllers
                 UserId = r.Owner.Id
             });
 
-            var model = new SearchVM()
+            var model = new SearchVM
             {
                 Workbench = userInfo.Workbench.Select(t => new ToolsVm(t)).ToList(),
                 SearchTools = completeTools.ToList()
@@ -97,7 +106,6 @@ namespace TheFinalProject.Controllers
             db.SaveChanges();
             return Content("done");
         }
-
 
 
         public ActionResult Profile(string id)
@@ -133,14 +141,12 @@ namespace TheFinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
                 var currentUserId = User.Identity.GetUserId();
 
 
-            var newImageName = UploadImage(photo.InputStream);
-            tool.Photo = newImageName;
-            
+                var newImageName = UploadImage(photo.InputStream);
+                tool.Photo = newImageName;
+
                 var currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
                 currentUser.MyTools.Add(tool);
                 db.SaveChanges();
@@ -161,7 +167,7 @@ namespace TheFinalProject.Controllers
             CloudBlobContainer container = blobClient.GetContainerReference("toolimages");
 
             container.CreateIfNotExists();
-            container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+            container.SetPermissions(new BlobContainerPermissions {PublicAccess = BlobContainerPublicAccessType.Blob});
 
 
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(newImageName);
@@ -177,9 +183,8 @@ namespace TheFinalProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var tool = db.Tools.Find(id);
-            
 
-        
+
             if (tool == null)
             {
                 return HttpNotFound();
@@ -189,14 +194,12 @@ namespace TheFinalProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditTool(Tool tool)
+        public ActionResult EditTool(Tool tool, HttpPostedFileBase photo)
         {
             if (ModelState.IsValid)
             {
-            
-
-               
-               
+                var newImageName = UploadImage(photo.InputStream);
+                tool.Photo = newImageName;
                 db.SaveChanges();
                 db.Entry(tool).State = EntityState.Modified;
                 db.SaveChanges();

@@ -26,6 +26,9 @@ textarea {
     float: left;
     border: solid 1px darkgray;
     background-color: lightgrey;
-    padding: 5px;
+    padding: 10px;
     margin: 5px;
+}
+.textdiv {
+    word-wrap: break-word;
 }

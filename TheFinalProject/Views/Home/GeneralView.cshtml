@@ -6,19 +6,23 @@
     <tr>
         @using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
         {
-           
+
 
             <b> Search : </b>
             @Html.RadioButton("option", "Title")
             <text>Title</text>
             @Html.RadioButton("option", "Category")
             <text> Category </text>
-            @Html.RadioButton("option", "ZipCode")
-            <text>ZipCode</text>
-            @Html.TextBox("search")
+
+            @Html.TextBox("search", "search")
+            @Html.TextBox("zipcode", "zip code")
+
             <input type="submit" value="Filter" />
         }
     </tr>
+
+
+
 </div>
 <div class="col-xs-8 profilepanel">
     <table class="table">
@@ -56,7 +60,9 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    <div class="textdiv">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </div>
                 </td>
                 <td>
                     @item.CategoryName
@@ -69,22 +75,27 @@
                 </td>
                 <td>
             
-                        @if (item.UserId != User.Identity.GetUserId())
+                        @if (item.UserId != User.Identity.GetUserId() && !Model.Workbench.Any(x => x.ToolId == item.ToolId))
                          {
                              <td> <input  type="button" data-id="@item.ToolId" value="add this shit" class="addtool"/></td> 
                          }
-                         else
-                         {
+                        @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
+                        {
+                            <td>In workbench</td>
+                        }
+                        @if(item.UserId == User.Identity.GetUserId())
+                        {
                              <td>This is your tool</td>
                          }
-                  
+
+
                          </tr>
 
 
                 }
     </table>
 </div>
-<div class="profilepanel">
+<div class="col-xs-3 profilepanel">
     <table>
         <tr>
             <th>Title</th>
@@ -95,8 +106,12 @@
             {
             <tr>
                 <td>@item.Title</td>
-                <td>    <img style="width: 100px;" src="@item.Photo" /></td>   
-                <td>@item.Description</td>
+                <td>    <img style="width: 100px;" src="@item.Photo" /></td>
+                <td>
+                    <div class="textdiv">
+                        @Html.DisplayFor(x => item.Description)
+                </div>
+            </td>
                 <td> <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool" /></td>
             </tr>
         }

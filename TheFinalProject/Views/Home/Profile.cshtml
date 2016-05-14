@@ -10,11 +10,11 @@
     <h1>
         Your Workshop
     </h1>
-    @Html.ActionLink("Click Here to Start Renting", "GeneralView", "Home")
+    @Html.ActionLink("Click Here to Start Renting", "SearchView", "Home")
 </div>
 
 <div class="row">
-    <div class="profilepanel">
+    <div class="col-xs-2 profilepanel textdiv">
 
         <h4>@Model.Email</h4>
         <img src="@Model.Photo"/>
@@ -24,8 +24,8 @@
 
     </div>
 
-    <div class="profilepanel">
-        @Html.ActionLink("New Tool", "CreateTool")
+    <div class="col-xs-6 profilepanel">
+        @Html.ActionLink("Add a Tool", "CreateTool")
         <table>
             <tr>
                 <th>Title</th>
@@ -42,7 +42,8 @@
                 <tr>
                     <td>@item.Title</td>
                     <td><img style="width: 100px;" src="@item.Photo" /></td>
-                    <td>@item.Description</td>
+                    <td>
+                        <div class="textdiv">@item.Description</div></td>
                     <td>@item.CategoryName</td>
                     <td>@item.ZipCode</td>
                     <td>@item.IsAvailable</td>
@@ -58,7 +59,7 @@
         </table>
 
     </div>
-    <div class="profilepanel">
+    <div class="col-xs-3 profilepanel">
         <table>
             <tr>
                 <th>Title</th>
@@ -70,7 +71,11 @@
                 <tr>
                     <td>@item.Title</td>
                     <td><img style="width: 100px;" src="@item.Photo" /></td>
-                    <td>@item.Description</td>
+                    <td>
+                        <div class="textdiv">
+                            @Html.DisplayFor(x => item.Description)
+                        </div>
+                    </td>
                     <td>  <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool" /></td>
                 </tr>
             }
