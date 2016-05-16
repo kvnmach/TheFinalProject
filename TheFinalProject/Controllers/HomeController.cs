@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -11,6 +12,8 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using TheFinalProject.Models;
 using DbContext = TheFinalProject.Models.DbContext;
+using SendGrid;
+
 
 namespace TheFinalProject.Controllers
 {
@@ -34,10 +37,10 @@ namespace TheFinalProject.Controllers
         }
 
 
-
         public ActionResult GeneralView(string option, string search, string zipcode)
         {
-
+            //sendgrid begins
+        
             var userInfo = db.Users.Find(User.Identity.GetUserId());
 
             var toolsList = new List<Tool>();
@@ -52,7 +55,6 @@ namespace TheFinalProject.Controllers
             }
             else
             {
-                //Availibility is located here to list
                 toolsList = db.Tools.ToList();
             }
 
@@ -117,19 +119,19 @@ namespace TheFinalProject.Controllers
             }
             var userInfo = db.Users.Find(id);
             var currentUser = db.Users.Find(User.Identity.GetUserId());
-                
-                var userProfile = new ProfileVM
-                {
-                    Email = userInfo.Email,
-                    Photo = userInfo.Photo,
-                    Phone = userInfo.Phone,
-                    City = userInfo.City,
-                    State = userInfo.State,
-                    Zip = userInfo.Zip,
-                    MyTools = userInfo.MyTools.Select(t => new ToolsVm(t)).ToList(),
-                    Workbench = currentUser.Workbench.Select(t => new ToolsVm(t)).ToList()
-                };
-           
+
+            var userProfile = new ProfileVM
+            {
+                Email = userInfo.Email,
+                Photo = userInfo.Photo,
+                Phone = userInfo.Phone,
+                City = userInfo.City,
+                State = userInfo.State,
+                Zip = userInfo.Zip,
+                MyTools = userInfo.MyTools.Select(t => new ToolsVm(t)).ToList(),
+                Workbench = currentUser.Workbench.Select(t => new ToolsVm(t)).ToList()
+            };
+
             return View("Profile", userProfile);
         }
 
@@ -162,18 +164,18 @@ namespace TheFinalProject.Controllers
         private static string UploadImage(Stream photo)
         {
             var newImageName = $"{Guid.NewGuid()}.jpg";
-            CloudStorageAccount storageAccount = CloudStorageAccount
+            var storageAccount = CloudStorageAccount
                 .Parse(
                     "DefaultEndpointsProtocol=https;AccountName=toolrental;AccountKey=5756pti72TndAssLpwfERuzmcFfNaj/b4cgD+339wlntTokGFkZ9bQXP0ua5FlbnZdldoTfa+2TOJDWG5J4J6Q==");
 
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("toolimages");
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("toolimages");
 
             container.CreateIfNotExists();
-            container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+            container.SetPermissions(new BlobContainerPermissions {PublicAccess = BlobContainerPublicAccessType.Blob});
 
 
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(newImageName);
+            var blockBlob = container.GetBlockBlobReference(newImageName);
             blockBlob.UploadFromStream(photo);
 
             return newImageName;
@@ -201,7 +203,6 @@ namespace TheFinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 db.SaveChanges();
                 db.Entry(tool).State = EntityState.Modified;
                 db.SaveChanges();

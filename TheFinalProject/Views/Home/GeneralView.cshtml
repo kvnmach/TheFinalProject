@@ -40,7 +40,7 @@
                 Category
             </th>
             <th>
-                Is Available
+           
             </th>
             <th>
                 Owner
@@ -73,11 +73,11 @@
                 <td>
                     @if (item.UserId == User.Identity.GetUserId())
                     {
-                       @Html.ActionLink("Your Profile", "Profile/" + item.UserId, "Home");
+                       @Html.ActionLink("Your Profile", "Profile", new { Id = item.UserId },"Home");
                     }
                     else
                     {
-                        @Html.ActionLink(item.UserEmail, "Profile/" + item.UserId, "Home");
+                        @Html.ActionLink(item.UserEmail, "Profile", new { Id = item.UserId }, "Home");
                     }
                 </td>
 
@@ -92,11 +92,11 @@
                     }
                     @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
                     {
-                        <td>In workbench</td>
+                        <td>In Workbench</td>
                     }
                     @if (item.UserId == User.Identity.GetUserId())
                     {
-                        <td>This is your tool</td>
+                        <td>This is your t</td>
                     }
 
 
