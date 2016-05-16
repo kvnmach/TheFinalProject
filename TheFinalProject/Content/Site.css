@@ -24,6 +24,7 @@ textarea {
 }
 .profilepanel {
     float: left;
+    
     border: solid 1px darkgray;
     background-color: lightgrey;
     padding: 10px;

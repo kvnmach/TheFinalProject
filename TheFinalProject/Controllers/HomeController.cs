@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using Humanizer;
 using Microsoft.AspNet.Identity;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -49,9 +50,9 @@ namespace TheFinalProject.Controllers
             {
                 toolsList = db.Tools.Where(x => x.Title.Contains(search) || search == null).ToList();
             }
-            else if (option == "Category")
+            else if (option == "Description")
             {
-                toolsList = db.Tools.Where(x => x.Description.Contains(search) || search == null).ToList();
+                toolsList = db.Tools.Where(x => x.CategoryName.Humanize().Contains(search) || search == null).ToList();
             }
             else
             {
@@ -134,6 +135,7 @@ namespace TheFinalProject.Controllers
 
             return View("Profile", userProfile);
         }
+    
 
         public ActionResult CreateTool()
         {
@@ -147,7 +149,7 @@ namespace TheFinalProject.Controllers
             if (ModelState.IsValid)
             {
                 var currentUserId = User.Identity.GetUserId();
-
+                
 
                 var newImageName = UploadImage(photo.InputStream);
                 tool.Photo = newImageName;
@@ -201,8 +203,19 @@ namespace TheFinalProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditTool(Tool tool, HttpPostedFileBase photo)
         {
+
             if (ModelState.IsValid)
             {
+                if(photo == null)
+                {
+                    db.SaveChanges();
+                    db.Entry(tool).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                var newImageName = UploadImage(photo.InputStream);
+                tool.Photo = newImageName;
                 db.SaveChanges();
                 db.Entry(tool).State = EntityState.Modified;
                 db.SaveChanges();

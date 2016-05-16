@@ -1,4 +1,5 @@
-﻿@using Humanizer
+﻿@using System.Web.UI.WebControls
+@using Humanizer
 @using Microsoft.AspNet.Identity
 @using TheFinalProject.Models
 @model TheFinalProject.Models.SearchVM
@@ -6,7 +7,7 @@
     <tr>
         @using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
         {
-
+            
 
             <b> Search : </b>
             @Html.RadioButton("option", "Title")
@@ -78,6 +79,7 @@
                     else
                     {
                         @Html.ActionLink(item.UserEmail, "Profile", new { Id = item.UserId }, "Home");
+                  
                     }
                 </td>
 
@@ -96,7 +98,7 @@
                     }
                     @if (item.UserId == User.Identity.GetUserId())
                     {
-                        <td>This is your t</td>
+                        <td>This is your tool</td>
                     }
 
 
@@ -114,16 +116,18 @@
             <th>Available</th>
         </tr>
         @foreach (var item in Model.Workbench)
-            {
+        {
+
             <tr>
+                
                 <td>@item.Title</td>
-                <td>    <img style="width: 100px;" src="@item.Photo" /></td>
+                <td> <img style="width: 100px;" src="@item.Photo"/></td>
                 <td>
                     <div class="textdiv">
                         @Html.DisplayFor(x => item.Description)
                     </div>
                 </td>
-                <td> <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool" /></td>
+                <td> <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool"/></td>
             </tr>
         }
     </table>

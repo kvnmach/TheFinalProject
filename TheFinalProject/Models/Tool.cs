@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using Humanizer;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection;
 
 namespace TheFinalProject.Models
 {
-
     public enum Category
     {
         AirCompressors,
@@ -23,10 +18,9 @@ namespace TheFinalProject.Models
         Crafting,
         ToolPackageKit,
         Pottery,
-        MicroTools,
+        MicroTools
     }
 
- 
 
     public class Tool
     {
@@ -47,6 +41,5 @@ namespace TheFinalProject.Models
         public virtual ApplicationUser Owner { get; set; }
 
         public virtual ICollection<ApplicationUser> OnPeoplesWorkBench { get; set; } = new List<ApplicationUser>();
-
     }
 }

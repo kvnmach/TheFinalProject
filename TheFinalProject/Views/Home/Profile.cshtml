@@ -8,28 +8,40 @@
 
 
 <div class="jumbotron">
-    <h1>
-        Your Workshop
-    </h1>
-    @Html.ActionLink("Click Here to Start Renting", "GeneralView", "Home")
+    @if (Model.Email == User.Identity.Name)
+    {
+        <h1>
+            Your Workshop
+        </h1>
+    }
+    else
+    {   <h2>You are now viewing</h2>
+        <h1> @Model.Email</h1>
+        <h1> Workshop</h1>
+    }
+    <div>
+        @Html.ActionLink("Click Here to Start Renting", "GeneralView", "Home")
+    </div>
+
 </div>
 
 <div class="row">
     <div class="col-xs-2 profilepanel textdiv">
 
         <h4>@Model.Email</h4>
-        <img src="@Model.Photo"/>
+        <img src="@Model.Photo" />
         <h4>@Model.Phone</h4>
         <h4>@Model.City, @Model.State</h4>
         <h4>@Model.Zip</h4>
 
+
     </div>
 
     <div class="col-xs-6 profilepanel">
-       @if (Model.Email == User.Identity.Name)
-       {
-          @Html.ActionLink("Add a Tool", "CreateTool");
-       } 
+        @if (Model.Email == User.Identity.Name)
+        {
+            @Html.ActionLink("Add a Tool", "CreateTool");
+        }
         <table>
             <tr>
                 <th>Title</th>
@@ -47,21 +59,30 @@
                     <td>@item.Title</td>
                     <td><img style="width: 100px;" src="@item.Photo" /></td>
                     <td>
-                        <div class="textdiv">@item.Description</div></td>
+                        <div class="textdiv">@item.Description</div>
+                    </td>
                     <td>@item.CategoryName</td>
                     <td>@item.ZipCode</td>
                     <td>@item.IsAvailable</td>
-                  
+
+                    @if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
+                    {
+                        <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool" /></td>
+                    }
+                    @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
+                    {
+                        <td>In Workbench</td>
+                    }
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
-                   @if (item.UserId == User.Identity.GetUserId())
+                    @if (item.UserId == User.Identity.GetUserId())
                     {
-                    <td>@Html.ActionLink("Edit Tool ", "EditTool", new { Id = item.ToolId })</td>
-                    <td>@Html.ActionLink("Delete Tool", "DeleteTool", new { Id = item.ToolId })</td>
+                        <td>@Html.ActionLink("Edit Tool ", "EditTool", new { Id = item.ToolId })</td>
+                        <td>@Html.ActionLink("Delete Tool", "DeleteTool", new { Id = item.ToolId })</td>
                     }
-              
+
                 </tr>
             }
         </table>
@@ -93,7 +114,7 @@
 
 @section scripts{
     <script>
-        
+
         $(".removetool").click(function () {
             var id = $(this).data('id');
             $.ajax({
@@ -105,6 +126,16 @@
             });
 
         });
+        $(".addtool").click(function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type: "POST",
+                data: { id: id },
+                url: '@Url.Action("AddWorkbench","Home")'
+            }).done(function () {
+                location.reload(true);
+            });
 
+        });
     </script>
 }

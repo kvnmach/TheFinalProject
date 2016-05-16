@@ -1,21 +1,18 @@
-﻿using System.Collections.Generic;
-using Humanizer;
+﻿using Humanizer;
 using TheFinalProject.Models;
 
 namespace TheFinalProject.Controllers
 {
     public class ToolsVm
     {
-
         public ToolsVm()
         {
-
         }
 
         public ToolsVm(Tool t)
         {
             Title = t.Title;
-            Photo = "https://toolrental.blob.core.windows.net/toolimages/" +  t.Photo;
+            Photo = "https://toolrental.blob.core.windows.net/toolimages/" + t.Photo;
             ToolId = t.Id;
             Description = t.Description;
             CategoryName = t.ToolCategory.Humanize();
@@ -25,6 +22,7 @@ namespace TheFinalProject.Controllers
             State = t.State;
             UserId = t.Owner.Id;
         }
+
         public int ToolId { get; set; }
         public string Title { get; set; }
         public object Photo { get; set; }
@@ -37,7 +35,4 @@ namespace TheFinalProject.Controllers
         public string UserId { get; set; }
         public string UserEmail { get; set; }
     }
-
-
- 
 }
