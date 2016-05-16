@@ -1,4 +1,5 @@
-﻿@using TheFinalProject.Models
+﻿@using Microsoft.AspNet.Identity
+@using TheFinalProject.Models
 @model TheFinalProject.Models.ProfileVM
 @{
     ViewBag.Title = "Profile";
@@ -10,7 +11,7 @@
     <h1>
         Your Workshop
     </h1>
-    @Html.ActionLink("Click Here to Start Renting", "SearchView", "Home")
+    @Html.ActionLink("Click Here to Start Renting", "GeneralView", "Home")
 </div>
 
 <div class="row">
@@ -25,7 +26,10 @@
     </div>
 
     <div class="col-xs-6 profilepanel">
-        @Html.ActionLink("Add a Tool", "CreateTool")
+       @if (Model.Email == User.Identity.Name)
+       {
+          @Html.ActionLink("Add a Tool", "CreateTool");
+       } 
         <table>
             <tr>
                 <th>Title</th>
@@ -52,8 +56,12 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>@Html.ActionLink("Edit Tool ", "EditTool", new {Id = item.ToolId})</td>
-                    <td>@Html.ActionLink("Delete Tool", "DeleteTool", new {Id = item.ToolId})</td>
+                   @if (item.UserId == User.Identity.GetUserId())
+                    {
+                    <td>@Html.ActionLink("Edit Tool ", "EditTool", new { Id = item.ToolId })</td>
+                    <td>@Html.ActionLink("Delete Tool", "DeleteTool", new { Id = item.ToolId })</td>
+                    }
+              
                 </tr>
             }
         </table>

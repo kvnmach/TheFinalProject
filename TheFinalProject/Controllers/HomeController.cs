@@ -28,16 +28,16 @@ namespace TheFinalProject.Controllers
         [HttpGet]
         public ActionResult SearchView(string zipCode)
         {
-          var searchResult =  db.Tools.Where(x => x.ZipCode.Contains(zipCode) || zipCode == null);
-            
+            var searchResult = db.Tools.Where(x => x.ZipCode.Contains(zipCode) || zipCode == null);
+
             return View(searchResult);
         }
 
-      
 
-        public    ActionResult GeneralView(string option, string search, string zipcode)
+
+        public ActionResult GeneralView(string option, string search, string zipcode)
         {
-            
+
             var userInfo = db.Users.Find(User.Identity.GetUserId());
 
             var toolsList = new List<Tool>();
@@ -50,10 +50,10 @@ namespace TheFinalProject.Controllers
             {
                 toolsList = db.Tools.Where(x => x.Description.Contains(search) || search == null).ToList();
             }
-          else
+            else
             {
                 //Availibility is located here to list
-                toolsList = db.Tools.Where(u => u.IsAvailable).ToList();
+                toolsList = db.Tools.ToList();
             }
 
             if (zipcode != "")
@@ -72,7 +72,8 @@ namespace TheFinalProject.Controllers
                 ZipCode = r.ZipCode,
                 City = r.City,
                 State = r.State,
-                UserId = r.Owner.Id
+                UserId = r.Owner.Id,
+                UserEmail = r.Owner.Email
             });
 
             var model = new SearchVM
@@ -115,18 +116,20 @@ namespace TheFinalProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var userInfo = db.Users.Find(id);
-
-            var userProfile = new ProfileVM
-            {
-                Email = userInfo.Email,
-                Photo = userInfo.Photo,
-                Phone = userInfo.Phone,
-                City = userInfo.City,
-                State = userInfo.State,
-                Zip = userInfo.Zip,
-                MyTools = userInfo.MyTools.Select(t => new ToolsVm(t)).ToList(),
-                Workbench = userInfo.Workbench.Select(t => new ToolsVm(t)).ToList()
-            };
+            var currentUser = db.Users.Find(User.Identity.GetUserId());
+                
+                var userProfile = new ProfileVM
+                {
+                    Email = userInfo.Email,
+                    Photo = userInfo.Photo,
+                    Phone = userInfo.Phone,
+                    City = userInfo.City,
+                    State = userInfo.State,
+                    Zip = userInfo.Zip,
+                    MyTools = userInfo.MyTools.Select(t => new ToolsVm(t)).ToList(),
+                    Workbench = currentUser.Workbench.Select(t => new ToolsVm(t)).ToList()
+                };
+           
             return View("Profile", userProfile);
         }
 
@@ -167,7 +170,7 @@ namespace TheFinalProject.Controllers
             CloudBlobContainer container = blobClient.GetContainerReference("toolimages");
 
             container.CreateIfNotExists();
-            container.SetPermissions(new BlobContainerPermissions {PublicAccess = BlobContainerPublicAccessType.Blob});
+            container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
 
 
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(newImageName);
@@ -198,8 +201,7 @@ namespace TheFinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newImageName = UploadImage(photo.InputStream);
-                tool.Photo = newImageName;
+
                 db.SaveChanges();
                 db.Entry(tool).State = EntityState.Modified;
                 db.SaveChanges();

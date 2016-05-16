@@ -28,10 +28,16 @@
 
         <div class="form-group">
             <div class="col-md-10">
+                <div class="form-group">
+          
+                    <div class="col-md-10">
+                        <label class="control-label col-md-2">Photo:</label> <input type="file" name="photo" value="" class="form-control" />
 
+                        @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                <label class="control-label col-md-2">Photo:</label> <input type="file" name="photo" value="" class="form-control"/>
-
+              
 
             </div>
         </div>

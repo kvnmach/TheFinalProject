@@ -43,6 +43,9 @@
                 Is Available
             </th>
             <th>
+                Owner
+            </th>
+            <th>
                 Zip Code
             </th>
 
@@ -54,7 +57,7 @@
             <tr>
 
                 <td>
-                    <img style="width: 100px;" src="@item.Photo"/>  
+                    <img style="width: 100px;" src="@item.Photo" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -68,31 +71,39 @@
                     @item.CategoryName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsAvailable)
+                    @if (item.UserId == User.Identity.GetUserId())
+                    {
+                       @Html.ActionLink("Your Profile", "Profile/" + item.UserId, "Home");
+                    }
+                    else
+                    {
+                        @Html.ActionLink(item.UserEmail, "Profile/" + item.UserId, "Home");
+                    }
                 </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.ZipCode)
                 </td>
                 <td>
-            
-                        @if (item.UserId != User.Identity.GetUserId() && !Model.Workbench.Any(x => x.ToolId == item.ToolId))
-                         {
-                             <td> <input  type="button" data-id="@item.ToolId" value="add this shit" class="addtool"/></td> 
-                         }
-                        @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
-                        {
-                            <td>In workbench</td>
-                        }
-                        @if(item.UserId == User.Identity.GetUserId())
-                        {
-                             <td>This is your tool</td>
-                         }
+
+                    @if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
+                    {
+                    <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool" /></td>
+                    }
+                    @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
+                    {
+                        <td>In workbench</td>
+                    }
+                    @if (item.UserId == User.Identity.GetUserId())
+                    {
+                        <td>This is your tool</td>
+                    }
 
 
-                         </tr>
+                </tr>
 
 
-                }
+        }
     </table>
 </div>
 <div class="col-xs-3 profilepanel">
@@ -110,8 +121,8 @@
                 <td>
                     <div class="textdiv">
                         @Html.DisplayFor(x => item.Description)
-                </div>
-            </td>
+                    </div>
+                </td>
                 <td> <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool" /></td>
             </tr>
         }
@@ -142,6 +153,6 @@
             });
 
         });
-   
+
     </script>
 }
