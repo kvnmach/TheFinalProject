@@ -6,23 +6,22 @@
 }
 
 
+<div class="profile header">
+    <div class="jumbotron">
+        @if (Model.Email == User.Identity.Name)
+        {
+            <h1>
+                Your Workshop
+            </h1>
+        }
+        else
+        {
+            <h2> Welcome to</h2>
+            <h1> @Model.Email</h1>
+            <h1> Workshop</h1>
+        }
 
-<div class="jumbotron">
-    @if (Model.Email == User.Identity.Name)
-    {
-        <h1>
-            Your Workshop
-        </h1>
-    }
-    else
-    {   <h2>You are now viewing</h2>
-        <h1> @Model.Email</h1>
-        <h1> Workshop</h1>
-    }
-    <div>
-        @Html.ActionLink("Click Here to Start Renting", "GeneralView", "Home")
     </div>
-
 </div>
 
 <div class="row">
@@ -38,23 +37,25 @@
     </div>
 
     <div class="col-xs-6 profilepanel">
+
         @if (Model.Email == User.Identity.Name)
         {
-            @Html.ActionLink("Add a Tool", "CreateTool");
+            @Html.ActionLink("Add a Tool", "CreateTool")
+
         }
         <table>
             <tr>
-                <th>Title</th>
-                <th>Photo</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Available</th>
-                <th>ZipCode</th>
-                <th>City</th>
+                <th><span>Title</span></th>
+                <th><span>Photo</span></th>
+                <th><span>Description</span></th>
+                <th><span>Category</span></th>
+                <th><span>ZipCode</span></th>
+
 
             </tr>
             @foreach (var item in Model.MyTools)
             {
+
                 <tr>
                     <td>@item.Title</td>
                     <td><img style="width: 100px;" src="@item.Photo" /></td>
@@ -63,11 +64,17 @@
                     </td>
                     <td>@item.CategoryName</td>
                     <td>@item.ZipCode</td>
-                    <td>@item.IsAvailable</td>
+
+
+
+
+
+
+
 
                     @if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
                     {
-                        <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool" /></td>
+                        <td> <input type="button" data-id="@item.ToolId" value="Add to Workbench" class="addtool" /></td>
                     }
                     @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
                     {
@@ -91,24 +98,31 @@
     <div class="col-xs-3 profilepanel">
         <table>
             <tr>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Available</th>
+                <div>
+                    <h3>Your WorkBench</h3>
+                </div>
             </tr>
+
+
+
             @foreach (var item in Model.Workbench)
             {
+
+
                 <tr>
                     <td>@item.Title</td>
-                    <td><img style="width: 100px;" src="@item.Photo" /></td>
+                    <td><img style="width: 50px;" src="@item.Photo" /></td>
                     <td>
-                        <div class="textdiv">
-                            @Html.DisplayFor(x => item.Description)
-                        </div>
+                        <div></div>
                     </td>
-                    <td>  <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool" /></td>
+                    <td> <input type="button" data-id="@item.ToolId" value="Remove" class="removetool" /></td>
                 </tr>
+
             }
+
+
         </table>
+
     </div>
 </div>
 

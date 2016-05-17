@@ -1,10 +1,16 @@
-﻿body {
+﻿@import url(http://db.onlinewebfonts.com/c/75ba54d9fa931a57fe28d3e0b1b73195?family=BuckleyW00-Regular);
+
+body {
+   
     padding-top: 50px;
     padding-bottom: 20px;
 }
-
+#header {
+    background-color: blue;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    margin-top: 60px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -24,12 +30,74 @@ textarea {
 }
 .profilepanel {
     float: left;
-    
-    border: solid 1px darkgray;
-    background-color: lightgrey;
+    border: solid 1px black;
     padding: 10px;
     margin: 5px;
+    overflow: hidden;
 }
+
 .textdiv {
-    word-wrap: break-word;
+
+word-wrap: break-word;
+
+}
+
+.listborder {
+    border-top: black;
+    border-bottom: black;
+    float: left;
+     padding: 10px;
+    margin: 5px;
+    overflow: hidden;
+}
+.layout header {
+    background-color: blue;
+}
+
+.layoutpage {
+    background-color:  pink ;
+    color: blue;
+    text-align: center;
+}
+
+.row-sm-1 {
+    position: relative;
+}
+
+#list{
+ position: relative;
+ width: 100%;
+ display: block;
+}
+
+#list th > span{
+ position: relative;
+ width: 27%;
+ float: left;
+ margin: 2% 2% 0 0;
+ display: block;
+}
+
+@media only screen and (max-width: 800px) {
+   #list th {
+        width: 49.9%;
+   }
+}
+div.imageheader {
+    align-content: center;
+    width: 1200px;
+    height: 720px;
+    content:url(http://www.theleadershipcoach.com/wp-content/uploads/2012/02/7-Tools-I-use4.jpg);
+    
+}
+.searchbar {
+  text-align: center;
+  margin-left: auto ;
+  margin-right: auto ;
+}
+
+.profile header {
+  text-align: center;
+  margin-left: auto ;
+  margin-right: auto ;
 }

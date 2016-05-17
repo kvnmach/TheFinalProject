@@ -52,7 +52,7 @@ namespace TheFinalProject.Controllers
             }
             else if (option == "Description")
             {
-                toolsList = db.Tools.Where(x => x.CategoryName.Humanize().Contains(search) || search == null).ToList();
+                toolsList = db.Tools.Where(x => x.Description.Contains(search) || search == null).ToList();
             }
             else
             {
@@ -111,6 +111,14 @@ namespace TheFinalProject.Controllers
             return Content("done");
         }
 
+        [HttpPost]
+        public ActionResult Follow(int id)
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+           
+            return Content("done");
+        }
+      
 
         public ActionResult Profile(string id)
         {

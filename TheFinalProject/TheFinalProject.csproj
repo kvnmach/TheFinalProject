@@ -263,6 +263,10 @@
     <Compile Include="Migrations\201605161925437_UserFollowing.Designer.cs">
       <DependentUpon>201605161925437_UserFollowing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605161940157_fixed table.cs" />
+    <Compile Include="Migrations\201605161940157_fixed table.Designer.cs">
+      <DependentUpon>201605161940157_fixed table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SearchPageVm.cs" />
     <Compile Include="Models\SearchVM.cs" />
@@ -369,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605161925437_UserFollowing.resx">
       <DependentUpon>201605161925437_UserFollowing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605161940157_fixed table.resx">
+      <DependentUpon>201605161940157_fixed table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

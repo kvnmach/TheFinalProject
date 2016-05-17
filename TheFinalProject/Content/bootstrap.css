@@ -4025,9 +4025,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   z-index: 1000;
-  min-height: 50px;
+  min-height: 90px;
   margin-bottom: 20px;
   border: 1px solid transparent;
+  
 }
 
 .navbar:before,
@@ -4389,17 +4390,17 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default .navbar-brand {
-  color: #777777;
+  color: white;
 }
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: white;
   background-color: transparent;
 }
 
 .navbar-default .navbar-text {
-  color: #777777;
+    color: white;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -4501,7 +4502,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
+  background-color: navy;
   border-color: #080808;
 }
 
@@ -4934,7 +4935,8 @@ a.list-group-item.active > .badge,
   font-weight: 200;
   line-height: 2.1428571435;
   color: inherit;
-  
+  margin-left: auto ;
+  margin-right: auto ;
 }
 
 .jumbotron h1 {
@@ -4961,6 +4963,7 @@ a.list-group-item.active > .badge,
   }
   .jumbotron h1 {
     font-size: 63px;
+      text-align: center;
   }
 }
 

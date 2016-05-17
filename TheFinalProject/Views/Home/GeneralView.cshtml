@@ -3,54 +3,93 @@
 @using Microsoft.AspNet.Identity
 @using TheFinalProject.Models
 @model TheFinalProject.Models.SearchVM
-<div class="row-sm-1 ">
-    <tr>
-        @using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
-        {
-            
 
-            <b> Search : </b>
-            @Html.RadioButton("option", "Title")
-            <text>Title</text>
-            @Html.RadioButton("option", "Category")
-            <text> Category </text>
+<div class="imageheader"></div>
 
-            @Html.TextBox("search", "search")
-            @Html.TextBox("zipcode", "zip code")
+ <div class="searchbar">
+    @using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
+    {
 
+        <label>
+            Search by Location
+            <br />
+            @Html.TextBox("zipcode", "", new { PlaceHolder = "Search by ZipCode Here" })
+            <input type="submit" value="Search" />
+        </label>
+            <br />
+            <label>
+                Filter Tools by
+                <br />
+               
+                @Html.RadioButton("option", "Title")
+                <text>Tool</text>
+                <br />
+                <text>or</text>
+                <br />
+                
+                @Html.RadioButton("option", "Description")
+                <text> Description </text>
+                <br />
+                @Html.TextBox("Search", "", new { PlaceHolder = "Search Tools" })
+            </label>
             <input type="submit" value="Filter" />
-        }
-    </tr>
-
-
+    }
 
 </div>
-<div class="col-xs-8 profilepanel">
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-xs-8 profilepanel" >
     <table class="table">
         <tr>
             <th>
-                Photo
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-           
-            </th>
-            <th>
-                Owner
-            </th>
-            <th>
-                Zip Code
+                <span>
+                    Photo
+                </span>
             </th>
 
-            <th></th>
+            <th>
+                <span>
+                Title
+                </span>
+            </th>
+            <th>
+                <span>
+                Description
+                </span>
+            </th>
+            <th>
+                <span>
+                Category
+                </span>
+            </th>
+            <th>
+                <span>
+                Owner
+                </span>
+            </th>
+            <th>
+                <span>
+                    Zip Code
+                </span>
+            </th>
         </tr>
 
         @foreach (var item in Model.SearchTools)
@@ -74,12 +113,12 @@
                 <td>
                     @if (item.UserId == User.Identity.GetUserId())
                     {
-                       @Html.ActionLink("Your Profile", "Profile", new { Id = item.UserId },"Home");
+                        @Html.ActionLink("Your Profile", "Profile", new { Id = item.UserId }, "Home");
                     }
                     else
                     {
                         @Html.ActionLink(item.UserEmail, "Profile", new { Id = item.UserId }, "Home");
-                  
+
                     }
                 </td>
 
@@ -90,7 +129,7 @@
 
                     @if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
                     {
-                    <td> <input type="button" data-id="@item.ToolId" value="add this shit" class="addtool" /></td>
+                    <td> <input type="button" data-id="@item.ToolId" value="Add To Workbench" class="addtool" /></td>
                     }
                     @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
                     {
@@ -108,30 +147,38 @@
         }
     </table>
 </div>
-<div class="col-xs-3 profilepanel">
+<div class="col-xs-3  profilepanel">
     <table>
-        <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Available</th>
-        </tr>
+        <h1>Your Workbench</h1>
         @foreach (var item in Model.Workbench)
         {
-
             <tr>
-                
                 <td>@item.Title</td>
-                <td> <img style="width: 100px;" src="@item.Photo"/></td>
-                <td>
-                    <div class="textdiv">
-                        @Html.DisplayFor(x => item.Description)
-                    </div>
-                </td>
-                <td> <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool"/></td>
+                <td></td>
+                <td><img style="width: 50px;" src="@item.Photo" /></td>
+                <td></td>
+                <td></td>
+                <td><input type="button" data-id="@item.ToolId" value="Remove" class="removetool" /></td>
             </tr>
         }
     </table>
 </div>
+
+
+@*<tr>
+
+        <td>@item.Title</td>
+        <td> <img style="width: 100px;" src="@item.Photo"/></td>
+        <td>
+            <div class="textdiv">
+                @Html.DisplayFor(x => item.Description)
+            </div>
+        </td>
+        <td> <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool"/></td>
+    </tr>*@
+
+@*</table>*@
+
 @section scripts {
     <script>
         $(".addtool").click(function () {
