@@ -4,7 +4,7 @@
 @using TheFinalProject.Models
 @model TheFinalProject.Models.SearchVM
 
-<div class="imageheader"></div>
+
 
  <div class="searchbar">
     @using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
@@ -56,97 +56,59 @@
 
 
 
-<div class="col-xs-8 profilepanel" >
-    <table class="table">
-        <tr>
-            <th>
-                <span>
-                    Photo
-                </span>
-            </th>
-
-            <th>
-                <span>
-                Title
-                </span>
-            </th>
-            <th>
-                <span>
-                Description
-                </span>
-            </th>
-            <th>
-                <span>
-                Category
-                </span>
-            </th>
-            <th>
-                <span>
-                Owner
-                </span>
-            </th>
-            <th>
-                <span>
-                    Zip Code
-                </span>
-            </th>
-        </tr>
-
-        @foreach (var item in Model.SearchTools)
-        {
-            <tr>
-
-                <td>
-                    <img style="width: 100px;" src="@item.Photo" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    <div class="textdiv">
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </div>
-                </td>
-                <td>
-                    @item.CategoryName
-                </td>
-                <td>
-                    @if (item.UserId == User.Identity.GetUserId())
-                    {
-                        @Html.ActionLink("Your Profile", "Profile", new { Id = item.UserId }, "Home");
-                    }
-                    else
-                    {
-                        @Html.ActionLink(item.UserEmail, "Profile", new { Id = item.UserId }, "Home");
-
-                    }
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.ZipCode)
-                </td>
-                <td>
-
-                    @if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
-                    {
-                    <td> <input type="button" data-id="@item.ToolId" value="Add To Workbench" class="addtool" /></td>
-                    }
-                    @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
-                    {
-                        <td>In Workbench</td>
-                    }
-                    @if (item.UserId == User.Identity.GetUserId())
-                    {
-                        <td>This is your tool</td>
-                    }
 
 
-                </tr>
+<div class="col-xs-7 ">
+    <div >
+        <ul>
+            @foreach (var item in Model.SearchTools)
+            {
+                <li> <img style="height: 100px;" src="@item.Photo"/></li>
 
 
-        }
-    </table>
+                <li> @Html.DisplayFor(modelItem => item.Title) </li>
+
+                <li>@Html.DisplayFor(modelItem => item.Description)</li>
+
+
+                <li>@item.CategoryName</li>
+
+                <li> @Html.DisplayFor(modelItem => item.ZipCode)</li>
+
+                if (item.UserId == User.Identity.GetUserId())
+                {
+                    <li><a href="#"> @Html.ActionLink("Your Profile", "Profile", new { Id = item.UserId }, "Home")</a></li>
+                }
+                else
+                {
+                    <li><a href="#"> @Html.ActionLink(item.UserEmail, "Profile", new {Id = item.UserId}, "Home")</a></li>
+                }
+
+                if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
+                {
+                    <li><a href="#"> <input type="button" data-id="@item.ToolId" value="Add To Workbench" class="addtool"/></a></li>
+                }
+                if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
+                {
+                    <li>
+
+                        In Workbench
+
+                    </li>
+                }
+                if (item.UserId == User.Identity.GetUserId())
+                {
+                    <li>This is your tool </li>
+                }
+            }
+
+
+
+            
+        </ul>
+    </div>
 </div>
+
 <div class="col-xs-3  profilepanel">
     <table>
         <h1>Your Workbench</h1>

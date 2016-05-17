@@ -53,14 +53,26 @@ word-wrap: break-word;
 .layout header {
     background-color: blue;
 }
+.navbar {
+    background-color: blue;
+    padding-top: 25px;
+    height: 110px;
+}
 
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+    position: relative;
+    margin: auto;
+    font-size: 25px;
+    
+}
 .layoutpage {
     background-color:  pink ;
     color: blue;
     text-align: center;
 }
 
-.row-sm-1 {
+.row-sm-7 {
     position: relative;
 }
 
@@ -83,13 +95,7 @@ word-wrap: break-word;
         width: 49.9%;
    }
 }
-div.imageheader {
-    align-content: center;
-    width: 1200px;
-    height: 720px;
-    content:url(http://www.theleadershipcoach.com/wp-content/uploads/2012/02/7-Tools-I-use4.jpg);
-    
-}
+
 .searchbar {
   text-align: center;
   margin-left: auto ;
@@ -100,4 +106,46 @@ div.imageheader {
   text-align: center;
   margin-left: auto ;
   margin-right: auto ;
+}
+
+.generallist {
+  width: 200px;
+}
+
+
+
+ul {
+    float: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0px;
+    text-align: center;
+}
+
+li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  
+}
+
+li:last-child {
+  border: none;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  width: 200px;
+    text-align: center;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+li a:hover {
+  font-size: 30px;
+  background: #f6f6f6;
 }
