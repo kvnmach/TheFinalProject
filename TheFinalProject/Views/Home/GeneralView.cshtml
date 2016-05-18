@@ -57,70 +57,78 @@
 
 
 
-
-<div class="col-xs-7 ">
+<div class="listgeneral">
     <div >
-        <ul>
-            @foreach (var item in Model.SearchTools)
+        <div>
+
+            <ul>
+
+                @foreach (var item in Model.SearchTools)
             {
-                <li> <img style="height: 100px;" src="@item.Photo"/></li>
+                    <li> <img style="height: 300px;" src="@item.Photo" /></li>
 
 
-                <li> @Html.DisplayFor(modelItem => item.Title) </li>
+                    <li> @Html.DisplayFor(modelItem => item.Title) </li>
 
-                <li>@Html.DisplayFor(modelItem => item.Description)</li>
+                    <li>@Html.DisplayFor(modelItem => item.Description)</li>
 
 
-                <li>@item.CategoryName</li>
+                    <li>@item.CategoryName</li>
 
-                <li> @Html.DisplayFor(modelItem => item.ZipCode)</li>
+                    <li> @Html.DisplayFor(modelItem => item.ZipCode)</li>
 
-                if (item.UserId == User.Identity.GetUserId())
-                {
-                    <li><a href="#"> @Html.ActionLink("Your Profile", "Profile", new { Id = item.UserId }, "Home")</a></li>
+                    if (item.UserId == User.Identity.GetUserId())
+                    {
+                        <li><a href="#"> @Html.ActionLink("Your Profile", "Profile", new { Id = item.UserId }, "Home")</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="#"> @Html.ActionLink(item.UserEmail, "Profile", new { Id = item.UserId }, "Home")</a></li>
+                    }
+
+                    if (item.UserId != User.Identity.GetUserId() && Model.Following.All(x => x.UserId != item.UserId))
+                    {
+                        <li><a href="#"><input type= "button" data-id="@item.UserId" value="Follow My WorkShop" class="adduser" /></a></li>
+                    }
+
+                    if (Model.Following.Any(x => x.UserId == item.UserId))
+                    {
+                        <li>   Following Workshop</li>
+                    }
+
+                    if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
+                    {
+                        <li  class="lastitem"><a href="#"> <input type="button" data-id="@item.ToolId" value="Add To Workbench" class="addtool" /></a></li>
+                    }
+                    if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
+                    {
+                        <li class="lastitem">In Workbench</li>
+                    }
+                    if (item.UserId == User.Identity.GetUserId())
+                    {
+                        <li class="lastitem">This is your tool </li>
+                    }
                 }
-                else
-                {
-                    <li><a href="#"> @Html.ActionLink(item.UserEmail, "Profile", new {Id = item.UserId}, "Home")</a></li>
-                }
-
-                if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
-                {
-                    <li><a href="#"> <input type="button" data-id="@item.ToolId" value="Add To Workbench" class="addtool"/></a></li>
-                }
-                if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
-                {
-                    <li>
-
-                        In Workbench
-
-                    </li>
-                }
-                if (item.UserId == User.Identity.GetUserId())
-                {
-                    <li>This is your tool </li>
-                }
-            }
 
 
 
-            
-        </ul>
+
+            </ul>
+        </div>
     </div>
 </div>
-
-<div class="col-xs-3  profilepanel">
+<div class ="workbench">
     <table>
         <h1>Your Workbench</h1>
         @foreach (var item in Model.Workbench)
         {
             <tr>
                 <td>@item.Title</td>
-                <td></td>
+                
                 <td><img style="width: 50px;" src="@item.Photo" /></td>
+                <td>@Html.ActionLink($"{item.UserEmail} ", "Profile", new { Id = item.UserId })</td>
                 <td></td>
-                <td></td>
-                <td><input type="button" data-id="@item.ToolId" value="Remove" class="removetool" /></td>
+                <td><a href="#"  class="button"><input type="button" data-id="@item.ToolId" value="Remove" class="removetool"/></a></td>
             </tr>
         }
     </table>
@@ -166,6 +174,34 @@
             });
 
         });
+
+        $(".removeuser")
+         .click(function () {
+             var id = $(this).data('id');
+             $.ajax({
+                 type: "POST",
+                 data: { id: id },
+                 url: '@Url.Action("RemoveFollowing", "Home")'
+             })
+                 .done(function () {
+                     location.reload(false);
+                 });
+
+         });
+
+        $(".adduser")
+    .click(function () {
+        var id = $(this).data('id');
+        $.ajax({
+            type: "POST",
+            data: { id: id },
+            url: '@Url.Action("AddtoFollowing", "Home")'
+        })
+            .done(function () {
+                location.reload(false);
+            });
+
+    });
 
     </script>
 }

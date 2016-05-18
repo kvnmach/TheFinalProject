@@ -267,7 +267,16 @@
     <Compile Include="Migrations\201605161940157_fixed table.Designer.cs">
       <DependentUpon>201605161940157_fixed table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605172311188_following.cs" />
+    <Compile Include="Migrations\201605172311188_following.Designer.cs">
+      <DependentUpon>201605172311188_following.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605172339417_follow.cs" />
+    <Compile Include="Migrations\201605172339417_follow.Designer.cs">
+      <DependentUpon>201605172339417_follow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\FollowingVM.cs" />
     <Compile Include="Models\SearchPageVm.cs" />
     <Compile Include="Models\SearchVM.cs" />
     <Compile Include="Models\Tool.cs" />
@@ -376,6 +385,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605161940157_fixed table.resx">
       <DependentUpon>201605161940157_fixed table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605172311188_following.resx">
+      <DependentUpon>201605172311188_following.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605172339417_follow.resx">
+      <DependentUpon>201605172339417_follow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

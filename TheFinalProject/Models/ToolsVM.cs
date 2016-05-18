@@ -21,6 +21,7 @@ namespace TheFinalProject.Controllers
             City = t.City;
             State = t.State;
             UserId = t.Owner.Id;
+            
         }
 
         public int ToolId { get; set; }

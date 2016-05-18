@@ -18,7 +18,7 @@ namespace TheFinalProject.Models
 
         public virtual ICollection<Tool> MyTools { get; set; } = new List<Tool>();
         public virtual ICollection<Tool> Workbench { get; set; } = new List<Tool>();
-
+        public virtual ICollection<ApplicationUser> Following { get; set; } = new List<ApplicationUser>();
     
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -29,7 +29,6 @@ namespace TheFinalProject.Models
             return userIdentity;
         }
     }
-
 
     public class DbContext : IdentityDbContext<ApplicationUser>
     {
@@ -50,7 +49,14 @@ namespace TheFinalProject.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Tool>().HasOptional(t => t.Owner).WithMany(o => o.MyTools);
-            modelBuilder.Entity<Tool>().HasMany(t => t.OnPeoplesWorkBench).WithMany(o => o.Workbench).Map(m =>
+            modelBuilder.Entity<Tool>().HasMany(t => t.OnPeoplesWorkBench).WithMany(o => o.
+            
+            
+            
+            
+            
+            
+            Workbench).Map(m =>
             {
                 m.ToTable("ToolsOnWorkBench");
                 m.MapLeftKey("User_Id");

@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Humanizer;
 using Microsoft.AspNet.Identity;
 using Microsoft.WindowsAzure.Storage;
@@ -22,12 +23,14 @@ namespace TheFinalProject.Controllers
     public class HomeController : Controller
     {
         private readonly DbContext db = new DbContext();
-
+        
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
             return Profile(userId);
         }
+
+
 
         [HttpGet]
         public ActionResult SearchView(string zipCode)
@@ -89,6 +92,30 @@ namespace TheFinalProject.Controllers
         }
 
         [HttpPost]
+        public ActionResult AddtoFollowing(string id)
+        {
+            var follow = db.Users.FirstOrDefault(x => x.Id == id);
+
+            var followInfo = db.Users.Find(User.Identity.GetUserId());
+
+            followInfo.Following.Add(follow);
+            db.SaveChanges();
+            return Content("done");
+        }
+
+        [HttpPost]
+        public ActionResult RemoveFollowing(string id)
+        {
+            var follow = db.Users.FirstOrDefault(x => x.Id == id);
+
+            var followInfo = db.Users.Find(User.Identity.GetUserId());
+
+            followInfo.Following.Remove(follow);
+            db.SaveChanges();
+            return Content("done");
+         }
+
+        [HttpPost]
         public ActionResult AddWorkBench(int Id)
         {
             var tool = db.Tools.FirstOrDefault(x => x.Id == Id);
@@ -128,8 +155,8 @@ namespace TheFinalProject.Controllers
             }
             var userInfo = db.Users.Find(id);
             var currentUser = db.Users.Find(User.Identity.GetUserId());
-
-            var userProfile = new ProfileVM
+            
+            var userProfile = new ProfileVm
             {
                 Email = userInfo.Email,
                 Photo = userInfo.Photo,
@@ -138,7 +165,8 @@ namespace TheFinalProject.Controllers
                 State = userInfo.State,
                 Zip = userInfo.Zip,
                 MyTools = userInfo.MyTools.Select(t => new ToolsVm(t)).ToList(),
-                Workbench = currentUser.Workbench.Select(t => new ToolsVm(t)).ToList()
+                Workbench = currentUser.Workbench.Select(t => new ToolsVm(t)).ToList(),
+                Following =   currentUser.Following.Select (t => new ProfileVm(t)).ToList(),
             };
 
             return View("Profile", userProfile);

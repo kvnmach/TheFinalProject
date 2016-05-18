@@ -58,6 +58,17 @@ word-wrap: break-word;
     padding-top: 25px;
     height: 110px;
 }
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
 
 .navbar-inverse .navbar-nav > li > a {
     color: white;
@@ -72,29 +83,11 @@ word-wrap: break-word;
     text-align: center;
 }
 
-.row-sm-7 {
-    position: relative;
-}
 
-#list{
- position: relative;
- width: 100%;
- display: block;
-}
 
-#list th > span{
- position: relative;
- width: 27%;
- float: left;
- margin: 2% 2% 0 0;
- display: block;
-}
 
-@media only screen and (max-width: 800px) {
-   #list th {
-        width: 49.9%;
-   }
-}
+
+
 
 .searchbar {
   text-align: center;
@@ -111,24 +104,48 @@ word-wrap: break-word;
 .generallist {
   width: 200px;
 }
-
-
-
-ul {
-    float: left;
-  list-style-type: none;
-  margin: 0;
-  padding: 0px;
-    text-align: center;
+.listgeneral {
+    position: relative;
+    left: 50%;
+    transform: translateX(-25%);
+    margin-top: 91px;
+}
+.workbench {
+    position: relative;
+    left: 50%;
+    transform: translateX(-25%);
+    margin-top: 140px;
+    margin-left: 30px;
+   
 }
 
+ul {
+  float: left;
+  list-style-type: none;
+ display:inline-block; 
+  
+  text-align: center;
+  margin-left: auto ;
+  margin-right: auto ;
+      margin-bottom: 30px;
+}
+
+
+.lastitem {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
 li {
   font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
-  
+
+    text-align: center;
 }
 
 li:last-child {
   border: none;
+    text-align: center;
 }
 
 li a {
@@ -136,16 +153,18 @@ li a {
   color: #000;
   display: block;
   width: 200px;
-    text-align: center;
-
+    margin: 0 auto;
+    
   -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
   -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
   -o-transition: font-size 0.3s ease, background-color 0.3s ease;
   -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
   transition: font-size 0.3s ease, background-color 0.3s ease;
+ 
 }
 
 li a:hover {
   font-size: 30px;
-  background: #f6f6f6;
+  background: white;
+
 }
