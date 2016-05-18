@@ -123,16 +123,18 @@
         @foreach (var item in Model.Workbench)
         {
             <tr>
-                <td>@item.Title</td>
-                
-                <td><img style="width: 50px;" src="@item.Photo" /></td>
-                <td>@Html.ActionLink($"{item.UserEmail} ", "Profile", new { Id = item.UserId })</td>
+                <td>@Html.ActionLink($"{item.Title} ", "Profile", new { Id = item.UserId })</td>
+
+
+                <td><img style="width: 50px;" src="@item.Photo"/></td>
+
                 <td></td>
-                <td><a href="#"  class="button"><input type="button" data-id="@item.ToolId" value="Remove" class="removetool"/></a></td>
+                <td><a href="#" class="button"><input type="button" data-id="@item.ToolId" value="Remove" class="removetool"/></a></td>
             </tr>
         }
     </table>
 </div>
+
 
 
 @*<tr>

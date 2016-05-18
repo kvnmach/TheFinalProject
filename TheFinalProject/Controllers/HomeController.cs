@@ -49,6 +49,8 @@ namespace TheFinalProject.Controllers
 
             var toolsList = new List<Tool>();
 
+            
+
             if (option == "Title")
             {
                 toolsList = db.Tools.Where(x => x.Title.Contains(search) || search == null).ToList();
