@@ -59,7 +59,7 @@
   
 
         <div class="row">
-            <div class="col-xs-6 middlecolumn textdiv">
+            <div class="col-xs-6 profilepanel textdiv">
 
                 @if (Model.Email == User.Identity.Name)
             {
@@ -117,11 +117,11 @@
             {
                         <tr>
                             <td>@item.Title</td>
-                            <td><img style="width: 50px;" src="@item.Photo" /></td>
+                            <td><img style="width: 58px;" src="@item.Photo" /></td>
                             <td>
                                 @Html.ActionLink($"{item.UserEmail} ", "Profile", new { Id = item.UserId })
                             </td>
-                            <td> <input type="button" data-id="@item.ToolId" value="Remove" class="removetool" /></td>
+                            <td class="button"><a href="#"> <input type="button" data-id="@item.ToolId" value="Remove" class="removetool"/></a></td>
                         </tr>
                     }
                 </table>

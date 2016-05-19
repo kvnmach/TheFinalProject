@@ -91,7 +91,7 @@ img {
 }
 .button {
     background-color: #4CAF50; /* Green */
-    border: none;
+    border-left: 2px black;
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -137,19 +137,25 @@ img {
   width: 200px;
 }
 .listgeneral {
-    position: relative;
-    left: 50%;
-    transform: translateX(-25%);
-    margin-top: 91px;
+  margin: 0 auto;
+  max-width: 440px;
+ 
+  
+    
+
+
+
+ 
 }
 .workbench {
     position:fixed; top:20%; right:10%;
     float: right;
-   
+    border: 5px black;
 }
 .profilesidebar {
      position:fixed; top:20%; left:10%;
     float: left;
+    border: 5px black;
 }
 
 

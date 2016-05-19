@@ -6,7 +6,7 @@
 
 
 
- <div class="searchbar">
+ <div class="profilesidebar" border ="5px black" >
     @using (Html.BeginForm("GeneralView", "Home", FormMethod.Get))
     {
 
@@ -57,9 +57,8 @@
 
 
 
-<div class="listgeneral">
-    <div >
-        <div>
+<div class="listgeneral" >
+   
 
             <ul>
 
@@ -115,8 +114,7 @@
 
             </ul>
         </div>
-    </div>
-</div>
+  
 <div id="workbenchborder" class ="workbench">
     <table  >
         <h1>Your Workbench</h1>
@@ -126,7 +124,7 @@
                 <td>@Html.ActionLink($"{item.Title} ", "Profile", new { Id = item.UserId })</td>
 
 
-                <td><img style="width: 50px;" src="@item.Photo"/></td>
+                <td><img style="width: 58px;" src="@item.Photo"/></td>
 
                 <td></td>
                 <td class="button"><a href="#" ><input type="submit" data-id="@item.ToolId" value="Remove" class="removetool"/></a></td>
