@@ -3,7 +3,7 @@ namespace TheFinalProject.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class InitialAgain : DbMigration
     {
         public override void Up()
         {
@@ -39,6 +39,9 @@ namespace TheFinalProject.Migrations
                         Photo = c.String(),
                         Description = c.String(),
                         IsAvailable = c.Boolean(nullable: false),
+                        ZipCode = c.String(),
+                        City = c.String(),
+                        State = c.String(),
                         ToolCategory = c.Int(nullable: false),
                         Owner_Id = c.String(maxLength: 128),
                     })
@@ -97,6 +100,19 @@ namespace TheFinalProject.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.ApplicationUserApplicationUsers",
+                c => new
+                    {
+                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
+                        ApplicationUser_Id1 = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.ApplicationUser_Id, t.ApplicationUser_Id1 })
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id1)
+                .Index(t => t.ApplicationUser_Id)
+                .Index(t => t.ApplicationUser_Id1);
+            
+            CreateTable(
                 "dbo.ToolsOnWorkBench",
                 c => new
                     {
@@ -118,10 +134,14 @@ namespace TheFinalProject.Migrations
             DropForeignKey("dbo.ToolsOnWorkBench", "Tool_Id", "dbo.Tools");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.ApplicationUserApplicationUsers", "ApplicationUser_Id1", "dbo.AspNetUsers");
+            DropForeignKey("dbo.ApplicationUserApplicationUsers", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropIndex("dbo.ToolsOnWorkBench", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.ToolsOnWorkBench", new[] { "Tool_Id" });
+            DropIndex("dbo.ApplicationUserApplicationUsers", new[] { "ApplicationUser_Id1" });
+            DropIndex("dbo.ApplicationUserApplicationUsers", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -130,6 +150,7 @@ namespace TheFinalProject.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropTable("dbo.ToolsOnWorkBench");
+            DropTable("dbo.ApplicationUserApplicationUsers");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");

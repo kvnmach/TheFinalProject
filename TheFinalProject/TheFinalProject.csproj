@@ -243,37 +243,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Migrations\201605101549064_Initial.cs" />
-    <Compile Include="Migrations\201605101549064_Initial.Designer.cs">
-      <DependentUpon>201605101549064_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605111553467_location.cs" />
-    <Compile Include="Migrations\201605111553467_location.Designer.cs">
-      <DependentUpon>201605111553467_location.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605112059475_handleremove.cs" />
-    <Compile Include="Migrations\201605112059475_handleremove.Designer.cs">
-      <DependentUpon>201605112059475_handleremove.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605112305014_categoryname.cs" />
-    <Compile Include="Migrations\201605112305014_categoryname.Designer.cs">
-      <DependentUpon>201605112305014_categoryname.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605161925437_UserFollowing.cs" />
-    <Compile Include="Migrations\201605161925437_UserFollowing.Designer.cs">
-      <DependentUpon>201605161925437_UserFollowing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605161940157_fixed table.cs" />
-    <Compile Include="Migrations\201605161940157_fixed table.Designer.cs">
-      <DependentUpon>201605161940157_fixed table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605172311188_following.cs" />
-    <Compile Include="Migrations\201605172311188_following.Designer.cs">
-      <DependentUpon>201605172311188_following.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605172339417_follow.cs" />
-    <Compile Include="Migrations\201605172339417_follow.Designer.cs">
-      <DependentUpon>201605172339417_follow.cs</DependentUpon>
+    <Compile Include="Migrations\201605191748330_InitialAgain.cs" />
+    <Compile Include="Migrations\201605191748330_InitialAgain.Designer.cs">
+      <DependentUpon>201605191748330_InitialAgain.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FollowingVM.cs" />
@@ -305,6 +277,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\shareshed.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -368,29 +341,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605101549064_Initial.resx">
-      <DependentUpon>201605101549064_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605111553467_location.resx">
-      <DependentUpon>201605111553467_location.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605112059475_handleremove.resx">
-      <DependentUpon>201605112059475_handleremove.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605112305014_categoryname.resx">
-      <DependentUpon>201605112305014_categoryname.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605161925437_UserFollowing.resx">
-      <DependentUpon>201605161925437_UserFollowing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605161940157_fixed table.resx">
-      <DependentUpon>201605161940157_fixed table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605172311188_following.resx">
-      <DependentUpon>201605172311188_following.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605172339417_follow.resx">
-      <DependentUpon>201605172339417_follow.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605191748330_InitialAgain.resx">
+      <DependentUpon>201605191748330_InitialAgain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

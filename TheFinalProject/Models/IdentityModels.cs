@@ -19,7 +19,7 @@ namespace TheFinalProject.Models
         public virtual ICollection<Tool> MyTools { get; set; } = new List<Tool>();
         public virtual ICollection<Tool> Workbench { get; set; } = new List<Tool>();
         public virtual ICollection<ApplicationUser> Following { get; set; } = new List<ApplicationUser>();
-    
+        public virtual ICollection<ApplicationUser> Followers { get; set; } = new List<ApplicationUser>();
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
