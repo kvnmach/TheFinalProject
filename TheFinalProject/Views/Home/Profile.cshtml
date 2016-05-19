@@ -41,18 +41,21 @@
             <h4>@Model.Phone</h4>
             <h4>@Model.City, @Model.State</h4>
             <h4>@Model.Zip</h4>
-       
-            
-                @foreach (var item in Model.Following)
+
+            @foreach (var item in Model.Following)
                 {
                     if (Model.Email == User.Identity.Name)
                     {
                      
                             <h3>@Html.ActionLink($"{item.Email} ", "Profile", new { Id = item.UserId }) </h3> <input type="button" data-id="@item.UserId" value="Unfollow" class="removeuser" />
-                            
-                    }
-                
+
                 }
+
+                if (Model.Email != User.Identity.Name && Model.Following.All(x => x.Email != item.Email)) { 
+
+                    <h3><a href="#"><input type="button" data-id="@item.UserId" value="Follow My WorkShop" class="adduser" /></a></h3>
+                }
+            }
         </div>
     </div>
 
