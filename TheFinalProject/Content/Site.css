@@ -7,6 +7,7 @@ body {
 }
 #header {
     background-color: blue;
+    border-bottom: 5px black;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -30,10 +31,14 @@ textarea {
 }
 .profilepanel {
     float: left;
-    border: solid 1px black;
+    border: solid 5px black;
     padding: 10px;
     margin: 5px;
     overflow: hidden;
+}
+
+.leftcolumn {
+    
 }
 
 .textdiv {
@@ -44,7 +49,7 @@ word-wrap: break-word;
 
 .listborder {
     border-top: black;
-    border-bottom: black;
+    border-bottom: 10px black;
     float: left;
      padding: 10px;
     margin: 5px;
@@ -52,11 +57,14 @@ word-wrap: break-word;
 }
 .layout header {
     background-color: blue;
+      border-bottom: 30px black;
 }
 .navbar {
     background-color: blue;
     padding-top: 25px;
     height: 110px;
+  
+
 }
 .button {
     background-color: #4CAF50; /* Green */
@@ -67,6 +75,7 @@ word-wrap: break-word;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+
 }
 
 

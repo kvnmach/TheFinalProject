@@ -27,199 +27,168 @@
 
 
 <div class="row">
-    <div class="col-xs-3 profilepanel textdiv">
+    <div class="col-xs-2 leftcolumn textdiv">
 
-     
+
         <h4>@Model.Email</h4>
 
         <h4>@Model.Phone</h4>
         <h4>@Model.City, @Model.State</h4>
         <h4>@Model.Zip</h4>
-        
-             
-        
- 
-    </div>
 
-   
-
-    <div>
-        @foreach (var item in Model.MyTools)
+        @foreach (var item in Model.Following)
         {
+
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <h3>
+                    You Are Following
+                </h3>
+                <td>@Html.ActionLink($"{item.Email} ", "Profile", new { Id = item.UserId })</td>
+                <td><img style="width: 50px;" src="@item.Photo" /></td>
+                <td>
+                    <div></div>
+                </td>
+                <td> <input type="button" data-id="@item.UserId" value="Unfollow" class="removeuser" /></td>
             </tr>
         }
-    </div>
-    <div class="col-xs-6 profilepanel">
-
-        @if (Model.Email == User.Identity.Name)
-        {
-            @Html.ActionLink("Add a Tool", "CreateTool")
-
-        }
-        <table>
-            <tr>
-                <th><span>Title</span></th>
-                <th><span>Photo</span></th>
-                <th><span>Description</span></th>
-                <th><span>Category</span></th>
-                <th><span>ZipCode</span></th>
-
-
-            </tr>
-            @foreach (var item in Model.MyTools)
-            {
-
-                <tr>
-                    <td>@item.Title</td>
-                    <td><img style="width: 100px;" src="@item.Photo" /></td>
-                    <td>
-                        <div class="textdiv">@item.Description</div>
-                    </td>
-                    <td>@item.CategoryName</td>
-                    <td>@item.ZipCode</td>
-
-
-
-                    @if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
-                    {
-                        <td> <input type="button" data-id="@item.ToolId" value="Add to Workbench" class="addtool" /></td>
-                    }
-                    @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
-                    {
-                        <td>In Workbench</td>
-                    }
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    @if (item.UserId == User.Identity.GetUserId())
-                    {
-                        <td>@Html.ActionLink("Edit Tool ", "EditTool", new { Id = item.ToolId })</td>
-                        <td>@Html.ActionLink("Delete Tool", "DeleteTool", new { Id = item.ToolId })</td>
-                    }
-
-                </tr>
-            }
-        </table>
-
-    </div>
-    <div class="col-xs-3 profilepanel">
-        <table>
-            <tr>
-                <div>
-                    <h3>Your WorkBench</h3>
-                </div>
-            </tr>
-               @foreach (var item in Model.Workbench)
-            {
-                <tr>
-                    <td>@item.Title</td>
-                    <td><img style="width: 50px;" src="@item.Photo" /></td>
-                    <td>
-                       @Html.ActionLink($"{item.UserEmail} ", "Profile", new { Id = item.UserId })
-                    </td>
-                    <td> <input type="button" data-id="@item.ToolId" value="Remove" class="removetool" /></td>
-                </tr>
-            }
-        </table>
     </div>
 </div>
 
 
-<div class="col-xs-3 profilepanel">
-    <table>
-        <tr>
-            <div>
-                
-            </div>
-        </tr>
-    
-            @foreach (var item in Model.Following)
-            {
-                
+
+
+<div class="row">
+            <div class="col-xs-6  middlecolumn textdiv">
+
+                @if (Model.Email == User.Identity.Name)
+                {
+                    @Html.ActionLink("Add a Tool", "CreateTool")
+
+                }
+
+                @foreach (var item in Model.MyTools)
+                {
+
                     <tr>
-                        <h3>
-                            You Are Following
-                        </h3>
-                        <td>@Html.ActionLink($"{item.Email} ", "Profile", new {Id = item.UserId})</td>
-                        <td><img style="width: 50px;" src="@item.Photo"/></td>
+                        <td>@item.Title</td>
+                        <td><img style="width: 100px;" src="@item.Photo" /></td>
                         <td>
-                            <div></div>
+                            <div class="textdiv">@item.Description</div>
                         </td>
-                        <td> <input type="button" data-id="@item.UserId" value="Unfollow" class="removeuser"/></td>
+                        <td>@item.CategoryName</td>
+                        <td>@item.ZipCode</td>
+
+
+
+                        @if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
+                {
+                            <td> <input type="button" data-id="@item.ToolId" value="Add to Workbench" class="addtool" /></td>
+                        }
+                        @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
+                {
+                            <td>In Workbench</td>
+                        }
                     </tr>
-             
-        }
-    </table>
-</div>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        @if (item.UserId == User.Identity.GetUserId())
+                {
+                            <td>@Html.ActionLink("Edit Tool ", "EditTool", new { Id = item.ToolId })</td>
+                            <td>@Html.ActionLink("Delete Tool", "DeleteTool", new { Id = item.ToolId })</td>
+                        }
+
+                    </tr>
+                }
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-2 thirdcolumn">
+                <table>
+                    <tr>
+                        <div>
+                            <h3>Your WorkBench</h3>
+                        </div>
+                    </tr>
+                    @foreach (var item in Model.Workbench)
+            {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td><img style="width: 50px;" src="@item.Photo" /></td>
+                            <td>
+                                @Html.ActionLink($"{item.UserEmail} ", "Profile", new { Id = item.UserId })
+                            </td>
+                            <td> <input type="button" data-id="@item.ToolId" value="Remove" class="removetool" /></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
 
 
 
 
-@section scripts{
-    <script>
 
-        $(".removetool")
-            .click(function() {
-                var id = $(this).data('id');
-                $.ajax({
-                        type: "POST",
-                        data: { id: id },
-                        url: '@Url.Action("RemoveWorkBench", "Home")'
-                    })
-                    .done(function() {
-                        location.reload(true);
+
+        @section scripts{
+            <script>
+
+                $(".removetool")
+                    .click(function () {
+                        var id = $(this).data('id');
+                        $.ajax({
+                            type: "POST",
+                            data: { id: id },
+                            url: '@Url.Action("RemoveWorkBench", "Home")'
+                        })
+                            .done(function () {
+                                location.reload(true);
+                            });
+
+                    });
+                $(".addtool")
+                    .click(function () {
+                        var id = $(this).data('id');
+                        $.ajax({
+                            type: "POST",
+                            data: { id: id },
+                            url: '@Url.Action("AddWorkbench", "Home")'
+                        })
+                            .done(function () {
+                                location.reload(true);
+                            });
+
                     });
 
-            });
-        $(".addtool")
-            .click(function() {
-                var id = $(this).data('id');
-                $.ajax({
-                        type: "POST",
-                        data: { id: id },
-                        url: '@Url.Action("AddWorkbench", "Home")'
-                    })
-                    .done(function() {
-                        location.reload(true);
-                    });
+                $(".removeuser")
+                  .click(function () {
+                      var id = $(this).data('id');
+                      $.ajax({
+                          type: "POST",
+                          data: { id: id },
+                          url: '@Url.Action("RemoveFollowing", "Home")'
+                      })
+                          .done(function () {
+                              location.reload(true);
+                          });
 
-            });
-
-        $(".removeuser")
-          .click(function() {
-              var id = $(this).data('id');
-              $.ajax({
-                  type: "POST",
-                  data: { id: id },
-                  url: '@Url.Action("RemoveFollowing", "Home")'
-              })
-                  .done(function() {
-                      location.reload(true);
                   });
 
-          });
+                $(".adduser")
+            .click(function () {
+                var id = $(this).data('id');
+                $.ajax({
+                    type: "POST",
+                    data: { id: id },
+                    url: '@Url.Action("AddtoFollowing", "Home")'
+                })
+                    .done(function () {
+                        location.reload(true);
+                    });
 
-        $(".adduser")
-    .click(function () {
-        var id = $(this).data('id');
-        $.ajax({
-            type: "POST",
-            data: { id: id },
-            url: '@Url.Action("AddtoFollowing", "Home")'
-        })
-            .done(function () {
-                location.reload(true);
             });
 
-    });
-
-    </script>
-}
+            </script>
+        }

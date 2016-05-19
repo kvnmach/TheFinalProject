@@ -129,7 +129,7 @@
                 <td><img style="width: 50px;" src="@item.Photo"/></td>
 
                 <td></td>
-                <td><a href="#" class="button"><input type="button" data-id="@item.ToolId" value="Remove" class="removetool"/></a></td>
+                <td class="button"><a href="#" ><input type="submit" data-id="@item.ToolId" value="Remove" class="removetool"/></a></td>
             </tr>
         }
     </table>
@@ -186,7 +186,7 @@
                  url: '@Url.Action("RemoveFollowing", "Home")'
              })
                  .done(function () {
-                     location.reload(false);
+                     location.reload(true);
                  });
 
          });
@@ -200,7 +200,7 @@
             url: '@Url.Action("AddtoFollowing", "Home")'
         })
             .done(function () {
-                location.reload(false);
+                location.reload(true);
             });
 
     });
