@@ -36,9 +36,23 @@ textarea {
     margin: 5px;
     overflow: hidden;
 }
-
+#profilewrap {
+    width: 900px;
+}
 .leftcolumn {
-    
+    float: left;
+    width: 200px;
+    border: 10px black;
+}
+.middlecolumn {
+    float: left;
+    width: 400px;
+    border: 5px black;
+}
+.thirdcolumn {
+    float: left;
+    width: 300px;
+    border: 5px black;
 }
 
 .textdiv {
@@ -46,6 +60,15 @@ textarea {
 word-wrap: break-word;
 
 }
+img {
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
 
 .listborder {
     border-top: black;
@@ -120,12 +143,18 @@ word-wrap: break-word;
     margin-top: 91px;
 }
 .workbench {
-    position: relative;
-    left: 50%;
-    transform: translateX(-25%);
-    margin-top: 140px;
-    margin-left: 30px;
+    position:fixed; top:20%; right:10%;
+    float: right;
    
+}
+.profilesidebar {
+     position:fixed; top:20%; left:10%;
+    float: left;
+}
+
+
+#workbenchborder {
+        border: 5px black;
 }
 
 ul {
@@ -143,7 +172,7 @@ ul {
 .lastitem {
     margin-bottom: 30px;
     padding-bottom: 15px;
-    border-bottom: 1px solid black;
+    border-bottom: 5px solid black;
     text-align: center;
 }
 li {

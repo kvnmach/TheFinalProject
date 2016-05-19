@@ -25,49 +25,50 @@
     </div>
 </div>
 
+<div >
+    <div class="row">
 
-<div class="row">
-    <div class="col-xs-2 leftcolumn textdiv">
+        <div class="profilesidebar textdiv">
 
 
-        <h4>@Model.Email</h4>
+            <h3>@Model.Email</h3>
 
-        <h4>@Model.Phone</h4>
-        <h4>@Model.City, @Model.State</h4>
-        <h4>@Model.Zip</h4>
+            <h4>@Model.Phone</h4>
+            <h4>@Model.City, @Model.State</h4>
+            <h4>@Model.Zip</h4>
 
-        @foreach (var item in Model.Following)
-        {
+            @foreach (var item in Model.Following)
+            {
 
-            <tr>
-                <h3>
-                    You Are Following
-                </h3>
-                <td>@Html.ActionLink($"{item.Email} ", "Profile", new { Id = item.UserId })</td>
-                <td><img style="width: 50px;" src="@item.Photo" /></td>
-                <td>
-                    <div></div>
-                </td>
-                <td> <input type="button" data-id="@item.UserId" value="Unfollow" class="removeuser" /></td>
-            </tr>
-        }
+                <tr>
+                    <h3>
+                        You Are Following
+                    </h3>
+                    <td>@Html.ActionLink($"{item.Email} ", "Profile", new { Id = item.UserId })</td>
+                    <td><img style="width: 50px;" src="@item.Photo" /></td>
+                    <td>
+                        <div></div>
+                    </td>
+                    <td> <input type="button" data-id="@item.UserId" value="Unfollow" class="removeuser" /></td>
+                </tr>
+            }
+        </div>
     </div>
-</div>
 
 
+  
 
-
-<div class="row">
-            <div class="col-xs-6  middlecolumn textdiv">
+        <div class="row">
+            <div class="col-xs-6 middlecolumn textdiv">
 
                 @if (Model.Email == User.Identity.Name)
-                {
+            {
                     @Html.ActionLink("Add a Tool", "CreateTool")
 
                 }
 
                 @foreach (var item in Model.MyTools)
-                {
+            {
 
                     <tr>
                         <td>@item.Title</td>
@@ -105,11 +106,11 @@
 
         </div>
         <div class="row">
-            <div class="col-xs-2 thirdcolumn">
+            <div class="workbench">
                 <table>
                     <tr>
                         <div>
-                            <h3>Your WorkBench</h3>
+                            <h1>Your WorkBench</h1>
                         </div>
                     </tr>
                     @foreach (var item in Model.Workbench)
@@ -126,69 +127,75 @@
                 </table>
             </div>
         </div>
+    </div>
 
 
 
 
 
 
-        @section scripts{
-            <script>
 
-                $(".removetool")
-                    .click(function () {
-                        var id = $(this).data('id');
-                        $.ajax({
-                            type: "POST",
-                            data: { id: id },
-                            url: '@Url.Action("RemoveWorkBench", "Home")'
-                        })
-                            .done(function () {
-                                location.reload(true);
-                            });
 
-                    });
-                $(".addtool")
-                    .click(function () {
-                        var id = $(this).data('id');
-                        $.ajax({
-                            type: "POST",
-                            data: { id: id },
-                            url: '@Url.Action("AddWorkbench", "Home")'
-                        })
-                            .done(function () {
-                                location.reload(true);
-                            });
 
-                    });
 
-                $(".removeuser")
-                  .click(function () {
-                      var id = $(this).data('id');
-                      $.ajax({
-                          type: "POST",
-                          data: { id: id },
-                          url: '@Url.Action("RemoveFollowing", "Home")'
-                      })
-                          .done(function () {
-                              location.reload(true);
-                          });
 
-                  });
+    @section scripts{
+        <script>
 
-                $(".adduser")
-            .click(function () {
-                var id = $(this).data('id');
-                $.ajax({
-                    type: "POST",
-                    data: { id: id },
-                    url: '@Url.Action("AddtoFollowing", "Home")'
-                })
-                    .done(function () {
-                        location.reload(true);
-                    });
+            $(".removetool")
+                .click(function () {
+                    var id = $(this).data('id');
+                    $.ajax({
+                        type: "POST",
+                        data: { id: id },
+                        url: '@Url.Action("RemoveWorkBench", "Home")'
+                    })
+                        .done(function () {
+                            location.reload(true);
+                        });
 
-            });
+                });
+            $(".addtool")
+                .click(function () {
+                    var id = $(this).data('id');
+                    $.ajax({
+                        type: "POST",
+                        data: { id: id },
+                        url: '@Url.Action("AddWorkbench", "Home")'
+                    })
+                        .done(function () {
+                            location.reload(true);
+                        });
 
-            </script>
-        }
+                });
+
+            $(".removeuser")
+              .click(function () {
+                  var id = $(this).data('id');
+                  $.ajax({
+                      type: "POST",
+                      data: { id: id },
+                      url: '@Url.Action("RemoveFollowing", "Home")'
+                  })
+                      .done(function () {
+                          location.reload(true);
+                      });
+
+              });
+
+            $(".adduser")
+        .click(function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type: "POST",
+                data: { id: id },
+                url: '@Url.Action("AddtoFollowing", "Home")'
+            })
+                .done(function () {
+                    location.reload(true);
+                });
+
+        });
+
+        </script>
+    }
