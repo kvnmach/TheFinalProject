@@ -11,14 +11,14 @@
     {
 
         <label>
-            Search by Location
+            Search Location
             <br />
-            @Html.TextBox("zipcode", "", new { PlaceHolder = "Search by ZipCode Here" })
+            @Html.TextBox("zipcode","", new { PlaceHolder = "Search by ZipCode Here" })
             <input type="submit" value="Search" />
         </label>
             <br />
             <label>
-                Filter Tools by
+                Filter by
                 <br />
                
                 @Html.RadioButton("option", "Title")
@@ -34,34 +34,10 @@
             </label>
             <input type="submit" value="Filter" />
     }
-
 </div>
 
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="listgeneral" >
-   
-
             <ul>
-
                 @foreach (var item in Model.SearchTools)
             {
                     <li> <img style="height: 300px;" src="@item.Photo" /></li>
@@ -71,9 +47,9 @@
 
                     <li>@Html.DisplayFor(modelItem => item.Description)</li>
 
-
+            
                     <li>@item.CategoryName</li>
-
+                    <li>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</li>
                     <li> @Html.DisplayFor(modelItem => item.ZipCode)</li>
 
                     if (item.UserId == User.Identity.GetUserId())
@@ -108,10 +84,6 @@
                         <li class="lastitem">This is your tool </li>
                     }
                 }
-
-
-
-
             </ul>
         </div>
   
@@ -132,22 +104,6 @@
         }
     </table>
 </div>
-
-
-
-@*<tr>
-
-        <td>@item.Title</td>
-        <td> <img style="width: 100px;" src="@item.Photo"/></td>
-        <td>
-            <div class="textdiv">
-                @Html.DisplayFor(x => item.Description)
-            </div>
-        </td>
-        <td> <input type="button" data-id="@item.ToolId" value="fuck this" class="removetool"/></td>
-    </tr>*@
-
-@*</table>*@
 
 @section scripts {
     <script>

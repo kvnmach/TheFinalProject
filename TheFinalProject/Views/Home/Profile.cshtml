@@ -14,11 +14,16 @@
             <h1>
                 Your Workshop
             </h1>
+
+             <h1>@Html.ActionLink("Add a Tool", "CreateTool")</h1>
+
+
+
         }
         else
         {
             <h1> Welcome to</h1>
-            <h1> @Model.Email</h1>
+            <h1> @Model.Email's</h1>
             <h1> Workshop</h1>
         }
 
@@ -31,78 +36,81 @@
         <div class="profilesidebar textdiv">
 
 
-            <h3>@Model.Email</h3>
+            <h2>@Model.Email</h2>
 
             <h4>@Model.Phone</h4>
             <h4>@Model.City, @Model.State</h4>
             <h4>@Model.Zip</h4>
-
-            @foreach (var item in Model.Following)
-            {
-
-                <tr>
-                    <h3>
-                        You Are Following
-                    </h3>
-                    <td>@Html.ActionLink($"{item.Email} ", "Profile", new { Id = item.UserId })</td>
-                    <td><img style="width: 50px;" src="@item.Photo" /></td>
-                    <td>
-                        <div></div>
-                    </td>
-                    <td> <input type="button" data-id="@item.UserId" value="Unfollow" class="removeuser" /></td>
-                </tr>
-            }
+       
+            
+                @foreach (var item in Model.Following)
+                {
+                    if (Model.Email == User.Identity.Name)
+                    {
+                     
+                            <h3>@Html.ActionLink($"{item.Email} ", "Profile", new { Id = item.UserId }) </h3> <input type="button" data-id="@item.UserId" value="Unfollow" class="removeuser" />
+                            
+                    }
+                
+                }
         </div>
     </div>
 
 
   
 
-        <div class="row">
-            <div class="col-xs-6 profilepanel textdiv">
+      
+            <div class="profilelist">
 
-                @if (Model.Email == User.Identity.Name)
-            {
-                    @Html.ActionLink("Add a Tool", "CreateTool")
+           
 
-                }
-
-                @foreach (var item in Model.MyTools)
-            {
+                <table>
 
                     <tr>
-                        <td>@item.Title</td>
-                        <td><img style="width: 100px;" src="@item.Photo" /></td>
-                        <td>
-                            <div class="textdiv">@item.Description</div>
-                        </td>
-                        <td>@item.CategoryName</td>
-                        <td>@item.ZipCode</td>
+                        <th><span></span></th>
+                        <th><span></span></th>
+                        <th><span></span></th>
+                        <th><span></span></th>
+                        <th><span></span></th>
 
-
-
-                        @if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
-                {
-                            <td> <input type="button" data-id="@item.ToolId" value="Add to Workbench" class="addtool" /></td>
-                        }
-                        @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
-                {
-                            <td>In Workbench</td>
-                        }
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        @if (item.UserId == User.Identity.GetUserId())
-                {
-                            <td>@Html.ActionLink("Edit Tool ", "EditTool", new { Id = item.ToolId })</td>
-                            <td>@Html.ActionLink("Delete Tool", "DeleteTool", new { Id = item.ToolId })</td>
-                        }
 
                     </tr>
-                }
+                    @foreach (var item in Model.MyTools)
+                    {
 
-            </div>
+                        <tr>
+                            <td>@item.Title</td>
+                            <td><img style="width: 100px;" src="@item.Photo"/></td>
+                            <td>
+                                <div class="textdiv">@item.Description</div>
+                            </td>
+                            <td>@item.CategoryName</td>
+                            <td>@item.ZipCode</td>
+
+
+
+                            @if (item.UserId != User.Identity.GetUserId() && Model.Workbench.All(x => x.ToolId != item.ToolId))
+                            {
+                                <td  id="profilelist"> <input type="button" data-id="@item.ToolId" value="Add to Workbench" class="addtool"/></td>
+                            }
+                            @if (Model.Workbench.Any(x => x.ToolId == item.ToolId))
+                            {
+                                <td  id="profilelist">In Workbench</td>
+                            }
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            @if (item.UserId == User.Identity.GetUserId())
+                            {
+                                <td>@Html.ActionLink("Edit Tool ", "EditTool", new {Id = item.ToolId})</td>
+                                <td>@Html.ActionLink("Delete Tool", "DeleteTool", new {Id = item.ToolId})</td>
+                            }
+
+                        </tr>
+                    }
+                </table>
+</div>
 
         </div>
         <div class="row">
@@ -116,10 +124,10 @@
                     @foreach (var item in Model.Workbench)
             {
                         <tr>
-                            <td>@item.Title</td>
+                            <td>@Html.ActionLink($"{item.Title} ", "Profile", new { Id = item.UserId })</td>
                             <td><img style="width: 58px;" src="@item.Photo" /></td>
                             <td>
-                                @Html.ActionLink($"{item.UserEmail} ", "Profile", new { Id = item.UserId })
+                          
                             </td>
                             <td class="button"><a href="#"> <input type="button" data-id="@item.ToolId" value="Remove" class="removetool"/></a></td>
                         </tr>
@@ -127,7 +135,7 @@
                 </table>
             </div>
         </div>
-    </div>
+ 
 
 
 

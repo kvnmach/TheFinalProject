@@ -89,6 +89,22 @@ img {
   
 
 }
+.createtool {
+    margin: 0 auto;
+    max-width: 600px;
+    border: 5px black;
+}
+.edittool {
+    margin: 0 auto;
+    max-width: 800px;
+
+}
+.profilelist {
+    border-bottom: 5px black;
+    margin: 0 auto;
+    max-width: 500px;
+    border-bottom: 3px black;
+}
 .button {
     background-color: #4CAF50; /* Green */
     border-left: 2px black;
@@ -148,7 +164,7 @@ img {
  
 }
 .workbench {
-    position:fixed; top:20%; right:10%;
+    position:fixed; top:20%; right:6%;
     float: right;
     border: 5px black;
 }

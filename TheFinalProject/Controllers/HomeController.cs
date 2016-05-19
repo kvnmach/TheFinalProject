@@ -41,7 +41,7 @@ namespace TheFinalProject.Controllers
         }
 
 
-        public ActionResult GeneralView(string option, string search, string zipcode)
+        public ActionResult GeneralView(string option, string search, string zipcode, string city, string state)
         {
             //sendgrid begins
         
@@ -64,9 +64,9 @@ namespace TheFinalProject.Controllers
                 toolsList = db.Tools.ToList();
             }
 
-            if (zipcode != "")
+            if (zipcode != "" || city !="" || state !="" )
             {
-                toolsList = toolsList.Where(x => x.ZipCode == zipcode).ToList();
+                toolsList = toolsList.Where(x => x.ZipCode == zipcode || x.City == city || x.State == state).ToList();
             }
 
             var completeTools = toolsList.Select(r => new ToolsVm
